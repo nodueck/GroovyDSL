@@ -2,7 +2,7 @@ import types.*
 
 def Project = new DMDStructureBuilder()
 
-Project.Vodafone{
+Project.Test{
 
 	entity("Customer") {
 		description """Das erste Entity das beschrieben wird: Customer -> ist trivial
