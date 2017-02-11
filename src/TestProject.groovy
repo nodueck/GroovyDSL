@@ -1,3 +1,4 @@
+import generator.plantuml.DMDStructureToPlantUmlConverter
 import types.*
 
 def Project = new DMDStructureBuilder()
@@ -25,6 +26,8 @@ Project.Test{
 	}
 }
 
-Project.project.entityList.each { println it } 
+//Project.project.entityList.each { println it } 
 
-println Project.missingProperties
+println DMDStructureToPlantUmlConverter.instance.projectToPlantUml(Project.project)
+
+//println Project.missingProperties
