@@ -7,7 +7,7 @@ Project.Test{
 
 	entity("Customer") {
 		description """Das erste Entity das beschrieben wird: Customer -> ist trivial
-						 2 Zeilen Text, falls die Beschreibung mal länger sein sollte"""
+						 2 Zeilen oder mehr Text, falls die Beschreibung mal länger sein sollte"""
 		
 		id 			Number, 				Description: "Die ID"
 		
@@ -15,7 +15,6 @@ Project.Test{
 					
 		lastName 	Text(min:1, max:50),	Description: "Nachname"
 	}
-	
 	
 	
 	entity("Contract") {

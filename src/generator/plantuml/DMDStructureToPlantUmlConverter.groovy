@@ -6,18 +6,9 @@ import MetaModell.Attribute
 import groovy.lang.Singleton;
 import groovy.text.markup.AutoNewLineTransformer
 
-@Singleton
 public class DMDStructureToPlantUmlConverter {
-
-	def convertEntities = true
-	def convertValueObjects = true
 	
-	
-	public String entityToPlantUml(Entity entity){
-		if(!convertEntities){
-			return ""
-		}
-		
+	public static String entityToPlantUml(Entity entity){
 		StringBuilder strB = new StringBuilder()
 		strB.append("object $entity.name {\n");
 		for(Attribute attr: entity.attributeList){
@@ -27,7 +18,7 @@ public class DMDStructureToPlantUmlConverter {
 		strB.toString()
 	}
 	
-	public String projectToPlantUml(Project project){
+	public static String projectToPlantUml(Project project){
 		StringBuilder strB = new StringBuilder()
 		strB.append("@startUml\n")
 		strB.append("\n")

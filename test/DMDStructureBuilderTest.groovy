@@ -5,10 +5,16 @@ import MetaModell.Project
 import org.junit.Test
 
 class DMDStructureBuilderTest {
+	
+	@Test
+	public void testProject() {
+		Project project = new DMDStructureBuilder().AnyProject { }
+		assertEquals("AnyProject", project.name)
+	}
 
 	@Test
 	public void testEntity() {
-		def project = new DMDStructureBuilder().Test {
+		Project project = new DMDStructureBuilder().Test {
 			entity("TestEntity")
 			entity("SecondEntity")
 		}
@@ -22,7 +28,7 @@ class DMDStructureBuilderTest {
 	
 	@Test
 	public void testValueObject() {
-		def project = new DMDStructureBuilder().Test {
+		Project project = new DMDStructureBuilder().Test {
 			valueObject("TestVO")
 			valueObject("SecondVO")
 		}
@@ -37,14 +43,13 @@ class DMDStructureBuilderTest {
 	
 	@Test
 	public void testAttributes() {
-		def project = new DMDStructureBuilder().Test {
+		Project project = new DMDStructureBuilder().Test {
 			valueObject("TestVO") {
 				id
 				attributeWithType Text
 				attributeWithProperties Text(min:1, max:20), Description: "description for attribute with properties"
 			}
 		}
-		
 		
 		
 		assertNotNull(project.valueObjectList)
@@ -55,15 +60,15 @@ class DMDStructureBuilderTest {
 		
 		Attribute attribute1 = attributes.get(0) as Attribute
 		assertEquals("attributeWithType", attribute1.name)
-//		assertEquals(Text, attribute1.type) TODO
+		//	TODO: assertEquals(Text, attribute1.type)
 		
 		Attribute attribute2 = attributes.get(1) as Attribute
 		assertEquals("attributeWithProperties", attribute2.name)
-//		assertEquals(Text, attribute2.type)
-		println attribute2.attributes["Description"]
-		assertEuqlas("description for attribute with properties", attribute2.attributes["Description"])
+		//	TODO: assertEquals(Text, attribute2.type)
+
+		assertEquals("description for attribute with properties", attribute2.attributes["Description"])
 		
-		//TODO: test, there's some output that id of valueObject "TestVO" was ignored
+		//	TODO: test, there's some output that id of valueObject "TestVO" was ignored
 	}
 
 }

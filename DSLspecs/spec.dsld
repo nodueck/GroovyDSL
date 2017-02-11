@@ -1,0 +1,30 @@
+// this is a DSLD file
+// start off creating a custom DSL Descriptor for your Groovy DSL
+
+// The following snippet adds the 'newProp' to all types that are a subtype of GroovyObjects
+// contribute(currentType(subType('groovy.lang.GroovyObject'))) {
+//   property name : 'newProp', type : String, provider : 'Sample DSL', doc : 'This is a sample.  You should see this in content assist for GroovyObjects: <pre>newProp</pre>'
+// }
+
+//currentType( subType( types.Text ) ).accept {
+//	[ m: "meter",  yd: "yard",  cm: "centimerter",  mi: "mile",  km: "kilometer"].each {
+//	  property name:it.key, type:"Distance",
+//		doc: """A <code>${it.value}</code> from <a href="$url">$url</a>"""
+//    }
+//}
+
+
+(enclosingCallName("Test")).accept {
+	property 	name: 'entity',
+				type: 'MetaModell.Entity',
+				doc: 'Beschreibt ein Entity'
+				
+	property 	name: 'valueObject',
+				type: 'MetaModell.ValueObject',
+				doc: 'Beschreibt ein Value Object'
+}
+
+(enclosingCallName("entity") & enclosingClosure()).accept {
+	property name: '*.'
+}
+
