@@ -1,3 +1,4 @@
+package dmd.dsl
 import MetaModell.*
 import types.*
 

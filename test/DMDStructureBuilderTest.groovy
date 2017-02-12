@@ -2,6 +2,8 @@ import static org.junit.Assert.*
 
 import MetaModell.Attribute
 import MetaModell.Project
+import dmd.dsl.DMDStructureBuilder
+
 import org.junit.Test
 
 class DMDStructureBuilderTest {

@@ -2,16 +2,16 @@ import static org.junit.Assert.*
 
 import java.awt.dnd.DragSourceListener
 
-import DSL
-
 import org.junit.Test
+
+import dmd.dsl.DSL
 
 class DSLTest {
 
 	@Test
 	public void testGeneratePlantUML() {
 		DSL script = new DSL()
-		String plantUmlScript = script.generatePlantUml(new File("src/TestProject.groovy"))
+		String plantUmlScript = script.generatePlantUml(new File("test/resources/TestProject.groovy"))
 		
 		String expectedPlantUMLScript ="""@startUml
 

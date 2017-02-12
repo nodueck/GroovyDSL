@@ -1,3 +1,4 @@
+package dmd.dsl;
 import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
@@ -14,13 +15,18 @@ class DSL {
 	
 	private void loadScript(File file) throws CompilationFailedException, IOException{
 		String scriptText = new Scanner(file).useDelimiter("\\Z").next();
-		scriptText = "new DMDStructureBuilder()." + scriptText;
+		scriptText = "import dmd.dsl.DMDStructureBuilder;\n\nnew DMDStructureBuilder()." + scriptText;
 		Script script = new GroovyShell().parse(scriptText);
 		result = ((Project) script.run());
 	}
 
-	public String generatePlantUml(File file) throws CompilationFailedException, IOException{
-		loadScript(file);
+	public String generatePlantUml(File file) throws DSLException{
+		try {
+			loadScript(file);
+		} catch (CompilationFailedException | IOException e) {
+			throw new DSLException(e);
+		}
 		return DMDStructureToPlantUmlConverter.projectToPlantUml(result);
 	}
+	
 }
