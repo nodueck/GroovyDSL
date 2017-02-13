@@ -16,7 +16,8 @@ class DSL {
 	private void loadScript(File file) throws CompilationFailedException, IOException{
 		String scriptText = new Scanner(file).useDelimiter("\\Z").next();
 		scriptText = "import dmd.dsl.DMDStructureBuilder;\n\nnew DMDStructureBuilder()." + scriptText;
-		Script script = new GroovyShell().parse(scriptText);
+		//Wichtig den eigenen Classloader zu nutzen, da beim Aufruf durch das EclipsePlugin dmd.dsl.DMDStructureBuilder nicht gefunden wird
+		Script script = new GroovyShell(this.class.classLoader).parse(scriptText); 
 		result = ((Project) script.run());
 	}
 
