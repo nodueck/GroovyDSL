@@ -1,3 +1,5 @@
+import types.*
+
 Test{
 
 	entity("Customer") {
