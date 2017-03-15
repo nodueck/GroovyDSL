@@ -1,3 +1,4 @@
+package generator
 import static org.junit.Assert.*
 
 import java.awt.dnd.DragSourceListener
@@ -6,7 +7,13 @@ import org.junit.Test
 
 import dmd.dsl.DSL
 
-class DSLTest {
+
+/**
+ * assures that the generated code corresponds the model(elements)
+ * @author DUEC007
+ *
+ */
+class PlantUmlGeneratorTest {
 
 	@Test
 	public void testGeneratePlantUML() {
