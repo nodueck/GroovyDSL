@@ -10,11 +10,12 @@ public class DMDStructureToPlantUmlConverter {
 	
 	public static String entityToPlantUml(Entity entity){
 		StringBuilder strB = new StringBuilder()
-		strB.append("object $entity.name {\n");
+		strB.append("class $entity.name << Entity >> {\n");
 		for(Attribute attr: entity.attributeList){
 			strB.append("\t$attr.name \n")
 		}
-		strB.append("}")
+		strB.append("}\n")
+		strB.append(note(entity.name, entity.description))
 		strB.toString()
 	}
 	
@@ -28,5 +29,16 @@ public class DMDStructureToPlantUmlConverter {
 		}
 		strB.toString()
 		strB.append("@enduml")
+	}
+	
+	private static String note(String to, String note){
+		if(note){
+			def noteName = "N$to"
+			note = note.replace("\n", "\\n").replace("\r", "").replace("\t","")
+			def plantUmlCmd = "note \"$note\" as $noteName\n"
+			plantUmlCmd += "$to .. $noteName"
+			return plantUmlCmd
+		}
+		return ""
 	}
 }
