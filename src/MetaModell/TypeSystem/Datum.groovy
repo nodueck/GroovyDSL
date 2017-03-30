@@ -1,5 +1,5 @@
 package MetaModell.TypeSystem
 
-class Datum {
+class Datum extends DomainType{
 
 }

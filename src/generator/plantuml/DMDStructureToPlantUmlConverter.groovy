@@ -1,8 +1,8 @@
 package generator.plantuml;
 
-import MetaModell.Entity
-import MetaModell.Project
-import MetaModell.Attribute
+import MetaModell.DomainModel
+import MetaModell.BusinessObjects.Entity
+import MetaModell.DomainProperty
 import groovy.lang.Singleton;
 import groovy.text.markup.AutoNewLineTransformer
 
@@ -11,7 +11,7 @@ public class DMDStructureToPlantUmlConverter {
 	public static String entityToPlantUml(Entity entity){
 		StringBuilder strB = new StringBuilder()
 		strB.append("class $entity.name << Entity >> {\n");
-		for(Attribute attr: entity.attributeList){
+		for(DomainProperty attr: entity.attributeList){
 			strB.append("\t$attr.name \n")
 		}
 		strB.append("}\n")
@@ -19,7 +19,7 @@ public class DMDStructureToPlantUmlConverter {
 		strB.toString()
 	}
 	
-	public static String projectToPlantUml(Project project){
+	public static String projectToPlantUml(DomainModel project){
 		StringBuilder strB = new StringBuilder()
 		strB.append("@startUml\n")
 		strB.append("\n")

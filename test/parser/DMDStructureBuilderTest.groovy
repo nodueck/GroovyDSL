@@ -1,8 +1,8 @@
 package parser
 import static org.junit.Assert.*
 
-import MetaModell.Attribute
-import MetaModell.Project
+import MetaModell.DomainProperty
+import MetaModell.DomainModel
 import dmd.dsl.DMDStructureBuilder
 
 import org.junit.Test
@@ -15,13 +15,13 @@ class DMDStructureBuilderTest {
 	
 	@Test
 	public void testProject() {
-		Project project = new DMDStructureBuilder().AnyProject { }
+		DomainModel project = new DMDStructureBuilder().AnyProject { }
 		assertEquals("AnyProject", project.name)
 	}
 
 	@Test
 	public void testEntity() {
-		Project project = new DMDStructureBuilder().Test {
+		DomainModel project = new DMDStructureBuilder().Test {
 			entity("TestEntity")
 			entity("SecondEntity")
 		}
@@ -35,7 +35,7 @@ class DMDStructureBuilderTest {
 	
 	@Test
 	public void testValueObject() {
-		Project project = new DMDStructureBuilder().Test {
+		DomainModel project = new DMDStructureBuilder().Test {
 			valueObject("TestVO")
 			valueObject("SecondVO")
 		}
@@ -50,7 +50,7 @@ class DMDStructureBuilderTest {
 	
 	@Test
 	public void testAttributes() {
-		Project project = new DMDStructureBuilder().Test {
+		DomainModel project = new DMDStructureBuilder().Test {
 			valueObject("TestVO") {
 				id
 				attributeWithType Text
@@ -65,11 +65,11 @@ class DMDStructureBuilderTest {
 		def attributes = project.valueObjectList.get(0).attributeList
 		assertEquals(2, attributes.size())
 		
-		Attribute attribute1 = attributes.get(0) as Attribute
+		DomainProperty attribute1 = attributes.get(0) as DomainProperty
 		assertEquals("attributeWithType", attribute1.name)
 		//	TODO: assertEquals(Text, attribute1.type)
 		
-		Attribute attribute2 = attributes.get(1) as Attribute
+		DomainProperty attribute2 = attributes.get(1) as DomainProperty
 		assertEquals("attributeWithProperties", attribute2.name)
 		//	TODO: assertEquals(Text, attribute2.type)
 

@@ -1,5 +1,5 @@
 package MetaModell.TypeSystem
 
-class Wahrheitswert {
+class Wahrheitswert extends DomainType{
 
 }

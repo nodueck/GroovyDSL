@@ -1,5 +1,5 @@
 package MetaModell.TypeSystem
 
-class Text {
+class Text extends DomainType{
 
 }

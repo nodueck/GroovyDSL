@@ -1,5 +1,5 @@
 package MetaModell.TypeSystem
 
-class Status {
+class Status extends DomainType{
 
 }

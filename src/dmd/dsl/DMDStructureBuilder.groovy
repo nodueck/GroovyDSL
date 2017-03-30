@@ -1,20 +1,22 @@
 package dmd.dsl
 import MetaModell.*
-import types.*
+import MetaModell.BusinessObjects.Entity
+import MetaModell.BusinessObjects.ValueObject
+import MetaModell.TypeSystem.*
 
 class DMDStructureBuilder extends BuilderSupport {
 
 	def ident = 0
 	def debug = false
 	
-	Project project
+	DomainModel project
 	
 	
 	@Override
 	protected Object createNode(Object name) {
 		//should be only the first element
 		debug "createNode(${name})"
-		return new Project(name:name)
+		return new DomainModel(name:name)
 	}
 
 	@Override
@@ -28,16 +30,16 @@ class DMDStructureBuilder extends BuilderSupport {
 				return new ValueObject(name:value)
 			case "description":
 				debug "create Description(${name}, ${value})"
-				return new Description(description:value)
+				return new Requirement(description:value)
 			case "Text":
 				debug "create Text(${name}, ${value})"
 				return new Text()
 			case "Number":
 				debug "create Number(${name}, ${value})"
-				return new Number()
+				return new Zahl()
 			default:
 			debug "create Attribute (${name}, ${value})"
-				return new Attribute(name:name, type:value)	
+				return new DomainProperty(name:name, type:value)	
 		}
 		
 	}
@@ -48,10 +50,10 @@ class DMDStructureBuilder extends BuilderSupport {
 		switch(name) {
 			case "Text":
 				debug "create Text(${name}, ${attributes})"
-				return new Text(min:attributes.min,max:attributes.max)
+				return new Text(min: attributes.min, max: attributes.max)
 			case "Number":
 				debug "create Number(${name}, ${attributes})"
-				return new Number(min:attributes.min,max:attributes.max)
+				return new Zahl(min: attributes.min, max: attributes.max)
 			default:
 				throw new Exception("Not Supported")
 		}
@@ -60,13 +62,21 @@ class DMDStructureBuilder extends BuilderSupport {
 	@Override
 	protected Object createNode(Object name, Map attributes, Object value) {
 		debug "create Attribute(name: ${name} attributes ${attributes} value ${value})"
-		return new Attribute(name:name, type:value, attributes:attributes)
+		return new DomainProperty(name:name, type:value, attributes:attributes)
 	}
 
 	@Override
 	protected void setParent(Object parent, Object child) {
 //		ident.times {print "\t"}
 //		debug "setParent(${parent}, ${child})"
+		if(child.class == Requirement.class){
+			if(parent.class == DomainAbstraction.class){
+				((DomainAbstraction)parent).requirement = child
+			}
+			if(parent.class == DomainOperation.class){
+				((DomainOperation)parent).requirement = child
+			}
+		}
 	}
 	
 	@Override
@@ -74,26 +84,20 @@ class DMDStructureBuilder extends BuilderSupport {
 		debug "nodeCompleted parent = " + parent + " node = " + node
 		
 		if(parent != null){
-			if(parent.class == Project.class){
+			if(parent.class == DomainModel.class){
 				if(node.class == Entity.class){
-					((Project) parent).entityList.add(node)
+					((DomainModel) parent).entityList.add(node)
 				} else if (node.class == ValueObject.class) {
-					((Project) parent).valueObjectList.add(node)
+					((DomainModel) parent).valueObjectList.add(node)
 				}
-			} else if (node.class == Attribute.class){
+			} else if (node.class == DomainProperty.class){
 				if(parent.class == Entity.class){
 					((Entity) parent).attributeList.add(node)
 				} else if (parent.class == ValueObject.class){
 					((ValueObject) parent).attributeList.add(node)
 				}
-			} else if(node.class == Description.class){
-				if(parent.class == Entity.class){
-					((Entity) parent).description = ((Description) node).description
-				} else if (parent.class == ValueObject.class){
-					((ValueObject) parent).description = ((Description) node).description
-				}
-			} else if (parent.class == Attribute.class){
-					((Attribute) parent).type = node
+			} else if (parent.class == DomainProperty.class){
+					((DomainProperty) parent).type = node
 			}
 		} else {
 			project = node

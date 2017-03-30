@@ -1,7 +1,15 @@
 package MetaModell
 
-abstract class AbstractElement {
+import groovy.transform.ToString
 
-	String description;
+
+@ToString(includes='name')
+abstract class DomainAbstraction {
+
+	Requirement requirement;
 	String name;
+	
+	boolean libraryClass = false
+	
+	DomainOperation[] operations
 }

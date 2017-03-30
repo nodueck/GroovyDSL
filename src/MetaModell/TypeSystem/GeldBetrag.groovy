@@ -1,5 +1,5 @@
 package MetaModell.TypeSystem
 
-class GeldBetrag {
+class GeldBetrag extends DomainType{
 
 }

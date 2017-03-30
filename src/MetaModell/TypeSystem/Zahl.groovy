@@ -1,5 +1,5 @@
 package MetaModell.TypeSystem
 
-class Zahl {
-
+class Zahl extends DomainType{
+	
 }

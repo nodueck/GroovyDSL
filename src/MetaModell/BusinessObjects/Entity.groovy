@@ -1,9 +1,11 @@
-package MetaModell
+package MetaModell.BusinessObjects
 
-class Entity extends AbstractElement{
+import MetaModell.DomainAbstraction
+
+class Entity extends PersistentDO{
 	
 	def attributeList = []
-	def tableName
+	def dbName
 	
 	@Override
 	public String toString() {

@@ -1,7 +1,9 @@
-package MetaModell
+package MetaModell.BusinessObjects
 
-class ValueObject extends AbstractElement{
+class ValueObject extends DomainObject{
+	
 	def attributeList = []
+	boolean webObject = false;
 	
 	@Override
 	public String toString() {
