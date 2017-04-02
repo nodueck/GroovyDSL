@@ -9,7 +9,7 @@ class Entity extends PersistentDO{
 	
 	@Override
 	public String toString() {
-		return this.name + " attributes: " + attributeList + " description: " + this.description
+		return this.name + " attributes: " + attributeList + " description: " + this.requirement
 	}
 
 }

@@ -15,7 +15,7 @@ public class DMDStructureToPlantUmlConverter {
 			strB.append("\t$attr.name \n")
 		}
 		strB.append("}\n")
-		strB.append(note(entity.name, entity.description))
+		strB.append(note(entity.name, entity.requirement))
 		strB.toString()
 	}
 	

@@ -1,4 +1,6 @@
 package dmd.dsl
+import java.lang.ClassValue.Identity
+
 import MetaModell.*
 import MetaModell.BusinessObjects.Entity
 import MetaModell.BusinessObjects.ValueObject
@@ -7,7 +9,7 @@ import MetaModell.TypeSystem.*
 class DMDStructureBuilder extends BuilderSupport {
 
 	def ident = 0
-	def debug = false
+	def debug = true
 	
 	DomainModel project
 	
@@ -24,21 +26,27 @@ class DMDStructureBuilder extends BuilderSupport {
 		switch(name) {
 			case "entity":
 				debug "create Entity (${name}, ${value})"
-				return new Entity(name:value)
+				return this.entity(value)
 			case "valueObject":
 				debug "create ValueObject (${name}, ${value})"
 				return new ValueObject(name:value)
 			case "description":
 				debug "create Description(${name}, ${value})"
-				return new Requirement(description:value)
+				return new Requirement(content: value)
 			case "Text":
 				debug "create Text(${name}, ${value})"
 				return new Text()
-			case "Number":
+			case "Zahl":
 				debug "create Number(${name}, ${value})"
 				return new Zahl()
 			default:
 			debug "create Attribute (${name}, ${value})"
+			if(value == "Zahl" || value.class == Zahl.class) {
+				value = new Zahl()
+			}
+			if(value == "Text" || value.class == Text.class) {
+				value = new Text()
+			}
 				return new DomainProperty(name:name, type:value)	
 		}
 		
@@ -50,10 +58,10 @@ class DMDStructureBuilder extends BuilderSupport {
 		switch(name) {
 			case "Text":
 				debug "create Text(${name}, ${attributes})"
-				return new Text(min: attributes.min, max: attributes.max)
-			case "Number":
-				debug "create Number(${name}, ${attributes})"
-				return new Zahl(min: attributes.min, max: attributes.max)
+				return new Text()
+			case "Zahl":
+				debug "create Zahl(${name}, ${attributes})"
+				return new Zahl()
 			default:
 				throw new Exception("Not Supported")
 		}
@@ -62,7 +70,14 @@ class DMDStructureBuilder extends BuilderSupport {
 	@Override
 	protected Object createNode(Object name, Map attributes, Object value) {
 		debug "create Attribute(name: ${name} attributes ${attributes} value ${value})"
-		return new DomainProperty(name:name, type:value, attributes:attributes)
+		def wert
+		if(value == "Zahl" || value.class == Zahl.class) {
+			wert = new Zahl()
+		}
+		if(value == "Text" || value.class == Text.class) {
+			wert = new Text()
+		}
+		return new DomainProperty(name:name, type:wert, attributes:attributes)
 	}
 
 	@Override
@@ -104,14 +119,19 @@ class DMDStructureBuilder extends BuilderSupport {
 		}
 	}
 	
-	def propertyMissing(name) {
+	def propertyMissing(String name) {
 		//add to list and initalize later
-		null
+		name
 	}
 	
 	def debug(msg) {
 		if(debug)
 			println msg
+	}
+	
+	Entity entity(String name){
+		debug "create Entity (${name})"
+		return new Entity(name:name)
 	}
 	
 }

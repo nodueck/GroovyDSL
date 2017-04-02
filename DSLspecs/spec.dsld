@@ -15,16 +15,27 @@
 
 
 (enclosingCallName("Test")).accept {
-	property 	name: 'entity',
-				type: 'MetaModell.Entity',
-				doc: 'Beschreibt ein Entity'
+	method	 	name: 'entity',	type: 'MetaModell.BusinessObjects.Entity',	doc: 'Beschreibt ein Entity', params: [null:'java.lang.String']
 				
-	property 	name: 'valueObject',
-				type: 'MetaModell.ValueObject',
-				doc: 'Beschreibt ein Value Object'
+	property 	name: 'valueObject', type: 'MetaModell.BusinessObjects.ValueObject', doc: 'Beschreibt ein Value Object'
 }
 
-(enclosingCallName("entity") & enclosingClosure()).accept {
-	property name: '*.'
+enclosingCallName("entity").accept {
+	property	name: 'attr', type: 'MetaModell.DomainProperty', doc: 'Ein Attribut'
+	
+	property	name: 'description', type: 'MetaModell.Requirement', doc: 'Beschreibung des Entity'
+	
 }
 
+//(enclosingCallName('entity')).accept {
+//	log currentNode
+//}
+
+//(enclosingCallName("entity") & bind(var : currentIdentifier())).accept {
+//		for(def i : var){
+//			log i
+//		}
+//		property	name: 'attr',
+//					type: 'MetaModell.DomainProperty',
+//					doc: 'Ein Attribut'
+//}

@@ -1,23 +1,20 @@
-import types.*
 
-Test{
+Project.Test{
 
-	entity("Customer") {
+	entity(Customer){
 		description """Das erste Entity das beschrieben wird: Customer -> ist trivial
 						 2 Zeilen oder mehr Text, falls die Beschreibung mal länger sein sollte"""
 		
-		id 			Number, 				description: "Die ID"
-		
-		firstName 	Text(min:1, max:50),	description: "Vorname",			dbName: "first_name"
-					
-		lastName 	Text(min:1, max:50),	description: "Nachname"
+		attr(id,			type:Zahl, 		description: "Die ID")
+		attr(firstName, 	type:Text,		description: "Vorname",	 dbName: "first_name")
+		attr(lastName, 		type:Text,		description: "Nachname")
 	}
 	
 	
-	entity("Contract") {
+	entity(Contract) {
 		description """ Normaler Vertrag"""
 		
-		id			Number
-		tarif		Text
+		attr(id,			type:Zahl)
+		attr(tarif,			type:Text)
 	}
 }

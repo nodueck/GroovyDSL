@@ -1,4 +1,5 @@
 package dmd.dsl;
+import dmd.dsl.DMDStructureBuilder;
 import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
@@ -14,10 +15,12 @@ class DSL {
 	DomainModel result;
 	
 	private void loadScript(File file) throws CompilationFailedException, IOException{
-		String scriptText = new Scanner(file).useDelimiter("\\Z").next();
-		scriptText = "import dmd.dsl.DMDStructureBuilder;\n\nnew DMDStructureBuilder()." + scriptText;
+//		String scriptText = new Scanner(file).useDelimiter("\\Z").next();
 		//Wichtig den eigenen Classloader zu nutzen, da beim Aufruf durch das EclipsePlugin dmd.dsl.DMDStructureBuilder nicht gefunden wird
-		Script script = new GroovyShell(this.class.classLoader).parse(scriptText); 
+		
+		def binding = new Binding([Project: new DMDStructureBuilder()])
+		
+		Script script = new GroovyShell(this.class.classLoader, binding).parse(file); 
 		result = ((DomainModel) script.run());
 	}
 
