@@ -22,6 +22,8 @@
 
 enclosingCallName("entity").accept {
 	property	name: 'attr', type: 'MetaModell.DomainProperty', doc: 'Ein Attribut'
+	property	name: 'hasMany', type: 'MetaModell.DomainObjectReference', doc: 'Eine Referenz zu einem anderen Objekt'
+	property	name: 'has', type: 'MetaModell.DomainObjectReference', doc: 'Eine Referenz zu einem anderen Objekt
 	
 	property	name: 'description', type: 'MetaModell.Requirement', doc: 'Beschreibung des Entity'
 	
