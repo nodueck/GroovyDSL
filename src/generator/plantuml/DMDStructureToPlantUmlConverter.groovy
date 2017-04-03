@@ -11,7 +11,7 @@ public class DMDStructureToPlantUmlConverter {
 	public static String entityToPlantUml(Entity entity){
 		StringBuilder strB = new StringBuilder()
 		strB.append("class $entity.name << Entity >> {\n");
-		for(DomainProperty attr: entity.attributeList){
+		for(DomainProperty attr: entity.properties){
 			strB.append("\t$attr.name \n")
 		}
 		strB.append("}\n")

@@ -1,7 +1,13 @@
 package parser
 import static org.junit.Assert.*
 
+import org.junit.Before
+
 import MetaModell.DomainProperty
+import MetaModell.BusinessObjects.ValueObject
+import MetaModell.TypeSystem.Text
+import parser.DMDFactoryBuilder
+import MetaModell.DomainAbstraction
 import MetaModell.DomainModel
 import dmd.dsl.DMDStructureBuilder
 
@@ -13,69 +19,66 @@ import org.junit.Test
  */
 class DMDStructureBuilderTest {
 	
+	@Before
+	void setUp() {
+		DomainModel.instance.domainObjects = []
+	}
+	
 	@Test
 	public void testProject() {
-		DomainModel project = new DMDStructureBuilder().AnyProject { }
-		assertEquals("AnyProject", project.name)
+		def project = new DMDFactoryBuilder().Test { }
+		println project
+		assertEquals("Test", project.name)
 	}
 
 	@Test
 	public void testEntity() {
-		DomainModel project = new DMDStructureBuilder().Test {
+		DomainModel project = new DMDFactoryBuilder().Test {
 			entity("TestEntity")
 			entity("SecondEntity")
 		}
 		
-		assertNotNull(project.entityList)
-		assertEquals(2, project.entityList.size())
+		assertNotNull(project.domainObjects)
+		assertEquals(2, project.domainObjects.size())
 		
 		//First element in DSL equals first element in the List
-		assertEquals("TestEntity", project.entityList.get(0).name)
+		assertEquals("TestEntity", project.domainObjects.get(0).name)
+		assertEquals("SecondEntity", project.domainObjects.get(1).name)
 	}
 	
 	@Test
 	public void testValueObject() {
-		DomainModel project = new DMDStructureBuilder().Test {
-			valueObject("TestVO")
-			valueObject("SecondVO")
+		DomainModel project = new DMDFactoryBuilder().Test {
+			valueObject(TestVO)
+			valueObject(SecondVO)
 		}
 		
 		
-		assertNotNull(project.valueObjectList)
-		assertEquals(2, project.valueObjectList.size())
+		assertNotNull(project.domainObjects)
+		assertEquals(2, project.domainObjects.size())
 		
 		//First element in DSL equals first element in the List
-		assertEquals("TestVO", project.valueObjectList.get(0).name)
+		assertEquals("TestVO", project.domainObjects.get(0).name)
+		assertEquals(ValueObject.class, project.domainObjects.get(0).class)
 	}
 	
 	@Test
 	public void testAttributes() {
-		DomainModel project = new DMDStructureBuilder().Test {
-			valueObject("TestVO") {
-				id
-				attributeWithType Text
-				attributeWithProperties Text(min:1, max:20), Description: "description for attribute with properties"
+		DomainModel project = new DMDFactoryBuilder().Test {
+			valueObject(TestVO) {
+				attr attributeWithProperties, type: Text, description: "description for attribute with properties"
 			}
 		}
 		
+		println SymbolicTable.instance.symbolTable
 		
-		assertNotNull(project.valueObjectList)
-		assertEquals(1, project.valueObjectList.size())
+		assertNotNull(project.domainObjects)
+		assertEquals(1, project.domainObjects.size())
 		
-		def attributes = project.valueObjectList.get(0).attributeList
-		assertEquals(2, attributes.size())
-		
-		DomainProperty attribute1 = attributes.get(0) as DomainProperty
-		assertEquals("attributeWithType", attribute1.name)
-		//	TODO: assertEquals(Text, attribute1.type)
-		
-		DomainProperty attribute2 = attributes.get(1) as DomainProperty
-		assertEquals("attributeWithProperties", attribute2.name)
-		//	TODO: assertEquals(Text, attribute2.type)
-
-		assertEquals("description for attribute with properties", attribute2.attributes["Description"])
-		
-		//	TODO: test, there's some output that id of valueObject "TestVO" was ignored
+		DomainProperty attribute = project.domainObjects.get(0).domainProperties.get(0)
+		assertEquals("attributeWithProperties", attribute.name)
+		assertTrue(attribute.type instanceof Text)
+		assertEquals("description for attribute with properties", attribute.requirement.content)
 	}
 
 }

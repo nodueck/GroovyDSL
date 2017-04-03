@@ -1,14 +1,14 @@
 package MetaModell
 
 import MetaModell.TypeSystem.DomainType
+import groovy.transform.ToString
 
+@ToString
 class DomainProperty extends DomainAbstraction{
 
 	DomainType type
-	def attributes
 	
-	boolean loeschweitergabe = false
-	boolean foreignKey = false
+	Requirement requirement
 	
 	boolean editierUnterstuetzung = false
 	ChoiceType auswahlDialog
@@ -26,13 +26,6 @@ class DomainProperty extends DomainAbstraction{
 	boolean immerVersteckt
 	boolean trnsient
 	Integer nachkommastellen
-	
-	
-	
-	@Override
-	String toString() {
-		return "${this.name} : ${this.type} with attributes: ${attributes}"
-	}
 	
 	
 	enum ChoiceType {

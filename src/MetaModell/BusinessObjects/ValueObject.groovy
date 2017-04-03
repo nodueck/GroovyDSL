@@ -1,12 +1,9 @@
 package MetaModell.BusinessObjects
 
+import groovy.transform.ToString
+
+@ToString
 class ValueObject extends DomainObject{
 	
-	def attributeList = []
 	boolean webObject = false;
-	
-	@Override
-	public String toString() {
-		return this.name + " attributes: " + attributeList + " description: " + this.description
-	}
 }

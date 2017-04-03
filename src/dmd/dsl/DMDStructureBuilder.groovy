@@ -23,6 +23,8 @@ class DMDStructureBuilder extends BuilderSupport {
 
 	@Override
 	protected Object createNode(Object name, Object value) {
+		return this.createNode(name, null, value)
+		
 		switch(name) {
 			case "entity":
 				debug "create Entity (${name}, ${value})"
@@ -54,6 +56,7 @@ class DMDStructureBuilder extends BuilderSupport {
 
 	@Override
 	protected Object createNode(Object name, Map attributes) {
+		return this.createNode(name, attributes, null)
 		debug "name: ${name} attributes ${attributes}"
 		switch(name) {
 			case "Text":

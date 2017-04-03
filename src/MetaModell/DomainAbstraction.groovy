@@ -11,5 +11,7 @@ abstract class DomainAbstraction {
 	
 	boolean libraryClass = false
 	
-	DomainOperation[] operations
+	def domainOperations = []
+	def domainProperties = []
+	def domainReferences = []
 }
