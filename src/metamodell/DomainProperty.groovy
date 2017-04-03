@@ -27,6 +27,8 @@ class DomainProperty extends DomainAbstraction{
 	boolean trnsient
 	Integer nachkommastellen
 	
+	String dbName
+	
 	
 	enum ChoiceType {
 		Auswahlfeld,

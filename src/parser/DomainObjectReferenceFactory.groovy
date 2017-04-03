@@ -1,7 +1,7 @@
 package parser
 
 import java.util.Map
-import parser.SymbolicTable.NameTypePair
+import parser.SymbolicTable.*
 import metamodell.DomainAbstraction
 import metamodell.DomainModel
 import metamodell.DomainReference
@@ -12,7 +12,7 @@ import groovy.util.FactoryBuilderSupport
 
 class DomainObjectReferenceFactory extends AbstractFactory {
 
-	NameTypePair id
+	def nameTypePair
 		
 	public boolean isLeaf() {
 		return true;
@@ -23,9 +23,12 @@ class DomainObjectReferenceFactory extends AbstractFactory {
 			throws InstantiationException, IllegalAccessException {
 		map = map.isEmpty() ? new HashMap<String, Object>() : map; //leere Map ist immutable, deshalb ggf. eine neue Anlegen
 		map.put("referenceType", name)
-		map.put("referencedObject", value)
-		id = new NameTypePair(name, value)
 		
+		if(!map.containsKey("type")){
+			map.put("type", "entity") //convinience
+		}
+		nameTypePair = [name:value, type:map.get("type")]
+		map.remove("type")
 		return new DomainReference(map)		
 	}
 	
@@ -40,10 +43,10 @@ class DomainObjectReferenceFactory extends AbstractFactory {
 	
 	@Override
 	public void onNodeCompleted(FactoryBuilderSupport builder, Object parent, Object node) {
-		if(SymbolicTable.instance.symbolTable.containsKey(id)){
-			(node as DomainReference).referencedObject = SymbolicTable.instance.symbolTable.get(id) 
+		if(SymbolicTable.instance.symbolTable.containsKey(nameTypePair)){
+			(node as DomainReference).referencedObject = SymbolicTable.instance.symbolTable.get(nameTypePair) 
 		} else {
-			SymbolicTable.instance.notYetResolvedObjects.put(id, parent)
+			SymbolicTable.instance.notYetResolvedObjects.put(nameTypePair, (node as DomainReference))
 		}		
 	}
 

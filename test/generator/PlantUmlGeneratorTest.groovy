@@ -20,18 +20,26 @@ class PlantUmlGeneratorTest {
 		DSL script = new DSL()
 		String plantUmlScript = script.generatePlantUml(new File("test/resources/TestProject.groovy"))
 		
-		String expectedPlantUMLScript ="""@startUml
+		String expectedPlantUMLScript =
+"""@startUml
 
-object Customer {
+class Customer << Entity >> {
 	id 
 	firstName 
 	lastName 
 }
+note \"Das erste Entity das beschrieben wird: Customer -> ist trivial\\n 2 Zeilen oder mehr Text, falls die Beschreibung mal länger sein sollte\" as NCustomer
+Customer .. NCustomer
 
-object Contract {
+class Contract << Entity >> {
 	id 
 	tarif 
 }
+note \" Normaler Vertrag\" as NContract
+Contract .. NContract
+
+Customer --  \"*\" Contract
+
 
 @enduml"""
 		

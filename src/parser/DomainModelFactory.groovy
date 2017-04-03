@@ -9,7 +9,7 @@ class DomainModelFactory extends AbstractFactory{
 	public boolean isLeaf() {
 		return false;
 	}
-
+	
 	@Override
 	public Object newInstance(FactoryBuilderSupport builder, Object name, Object value, Map map)
 			throws InstantiationException, IllegalAccessException {
@@ -33,6 +33,7 @@ class DomainModelFactory extends AbstractFactory{
 	
 	@Override
 	public void onNodeCompleted(FactoryBuilderSupport builder, Object parent, Object node) {
+		SymbolicTable.instance.resolveObjects()
 	}
 
 }

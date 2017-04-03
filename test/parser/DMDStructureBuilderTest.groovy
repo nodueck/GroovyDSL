@@ -4,12 +4,16 @@ import static org.junit.Assert.*
 import org.junit.Before
 
 import metamodell.DomainProperty
+import metamodell.DomainReference
+import metamodell.businessobjects.Entity
 import metamodell.businessobjects.ValueObject
 import metamodell.typesystem.Text
 import parser.DMDFactoryBuilder
+import parser.SymbolicTable.NameTypePair
 import metamodell.DomainAbstraction
 import metamodell.DomainModel
 import dmd.dsl.DMDStructureBuilder
+import groovy.util.ObjectGraphBuilder.DefaultNewInstanceResolver
 
 import org.junit.Test
 /**
@@ -22,6 +26,8 @@ class DMDStructureBuilderTest {
 	@Before
 	void setUp() {
 		DomainModel.instance.domainObjects = []
+		SymbolicTable.instance.symbolTable.clear()
+		SymbolicTable.instance.notYetResolvedObjects.clear()
 	}
 	
 	@Test
@@ -70,8 +76,6 @@ class DMDStructureBuilderTest {
 			}
 		}
 		
-		println SymbolicTable.instance.symbolTable
-		
 		assertNotNull(project.domainObjects)
 		assertEquals(1, project.domainObjects.size())
 		
@@ -79,6 +83,42 @@ class DMDStructureBuilderTest {
 		assertEquals("attributeWithProperties", attribute.name)
 		assertTrue(attribute.type instanceof Text)
 		assertEquals("description for attribute with properties", attribute.requirement.content)
+	}
+	
+	@Test
+	public void testDomainObjectReference() {
+		DomainModel project = new DMDFactoryBuilder().Test {
+			entity(Customer) {
+				attr name, 		type:Text
+				attr nachname, 	type:Text
+				hasMany Contract, type: entity
+			}
+			
+			entity(Contract) {
+				attr tarif, type:Text
+				has Customer, type:entity
+			}
+		}
+		
+		Entity customer = project.instance.domainObjects.get(0)
+		Entity contract = project.instance.domainObjects.get(1)
+		
+		//Test reference at customer entity
+		DomainReference customer2contractReference = customer.domainReferences.get(0)
+		assertFalse(customer2contractReference.foreignKey)
+		assertFalse(customer2contractReference.loeschweitergabe)
+		assertNotNull(customer2contractReference.referencedObject)
+		assertEquals(contract, customer2contractReference.referencedObject)
+		assertEquals("hasMany", customer2contractReference.referenceType)
+		
+		//Test reference at contract entity
+		DomainReference contract2customerReference = contract.domainReferences.get(0)
+		assertFalse(contract2customerReference.foreignKey)
+		assertFalse(contract2customerReference.loeschweitergabe)
+		assertNotNull(contract2customerReference.referencedObject)
+		assertEquals(customer, contract2customerReference.referencedObject)
+		assertEquals("has", contract2customerReference.referenceType)
+		
 	}
 
 }

@@ -1,15 +1,18 @@
 package parser
 
+import groovy.transform.Canonical
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
+import metamodell.DomainAbstraction
+import metamodell.DomainReference
 
 @Singleton
+@Canonical
 class SymbolicTable {
 	
 	HashMap<NameTypePair, Object> symbolTable = new HashMap<NameTypePair, Object>()
 	HashMap<NameTypePair, Object> notYetResolvedObjects = new HashMap<NameTypePair, Object>()
 	
-
 	@EqualsAndHashCode
 	@ToString
 	class NameTypePair {
@@ -19,14 +22,15 @@ class SymbolicTable {
 	
 	public void resolveObjects(){
 		symbolTable.each { nameValuePair, object ->
-			if(object != null && notYetResolvedObjects.containsKey(nameValuePair)){
-				def parent = notYetResolvedObjects.get(nameValuePair)
-				def child = symbolTable.get(nameValuePair)
-				parent.add(child)
+			if(notYetResolvedObjects.containsKey(nameValuePair)){
+				def emptyObject = notYetResolvedObjects.get(nameValuePair)
+				def resolvedObject = symbolTable.get(nameValuePair)
+				if(emptyObject instanceof DomainReference){
+					(emptyObject as DomainReference).referencedObject = resolvedObject
+				}
+				
 				notYetResolvedObjects.remove(nameValuePair)
 			}
 		}
 	}
-	
-	
 }

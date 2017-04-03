@@ -8,6 +8,7 @@ Project.Test{
 		attr	id,				type:Zahl, 		description: "Die ID"
 		attr	firstName, 		type:Text,		description: "Vorname",	 dbName: "first_name"
 		attr	lastName, 		type:Text,		description: "Nachname"
+		hasMany Contract
 	}
 	
 	

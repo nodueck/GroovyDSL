@@ -25,6 +25,8 @@ class DMDFactoryBuilder extends FactoryBuilderSupport {
 		registerFactory("valueObject", new BusinessObjectFactory())
 		registerFactory("attr", new DomainPropertyFactory())
 		registerFactory("description", new RequirementFactory())
+		registerFactory("has", new DomainObjectReferenceFactory())
+		registerFactory("hasMany", new DomainObjectReferenceFactory())
 	}
 	
 	def propertyMissing(String name) {
