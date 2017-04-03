@@ -1,6 +1,6 @@
-package MetaModell
+package metamodell
 
-import MetaModell.TypeSystem.DomainType
+import metamodell.typesystem.DomainType
 import groovy.transform.ToString
 
 @ToString

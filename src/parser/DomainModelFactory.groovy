@@ -1,7 +1,7 @@
 package parser
 
 import java.util.Map
-import MetaModell.DomainModel
+import metamodell.DomainModel
 import groovy.util.FactoryBuilderSupport
 
 class DomainModelFactory extends AbstractFactory{

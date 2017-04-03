@@ -1,8 +1,8 @@
 package parser
 
 import java.util.Map
-import MetaModell.DomainAbstraction
-import MetaModell.Requirement
+import metamodell.DomainAbstraction
+import metamodell.Requirement
 import groovy.util.AbstractFactory
 import groovy.util.FactoryBuilderSupport
 

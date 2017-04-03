@@ -2,12 +2,12 @@ package parser
 
 import java.util.Map
 import parser.SymbolicTable.NameTypePair
-import MetaModell.DomainAbstraction
-import MetaModell.DomainModel
-import MetaModell.DomainReference
-import MetaModell.BusinessObjects.Aggregate
-import MetaModell.BusinessObjects.Entity
-import MetaModell.BusinessObjects.ValueObject
+import metamodell.DomainAbstraction
+import metamodell.DomainModel
+import metamodell.DomainReference
+import metamodell.businessobjects.Aggregate
+import metamodell.businessobjects.Entity
+import metamodell.businessobjects.ValueObject
 import groovy.util.FactoryBuilderSupport
 
 class DomainObjectReferenceFactory extends AbstractFactory {

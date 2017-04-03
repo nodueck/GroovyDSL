@@ -1,6 +1,6 @@
-package MetaModell.BusinessObjects
+package metamodell.businessobjects
 
-import MetaModell.DomainAbstraction
+import metamodell.DomainAbstraction
 import groovy.transform.ToString
 
 @ToString

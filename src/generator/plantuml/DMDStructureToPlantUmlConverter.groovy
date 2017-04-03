@@ -1,8 +1,8 @@
 package generator.plantuml;
 
-import MetaModell.DomainModel
-import MetaModell.BusinessObjects.Entity
-import MetaModell.DomainProperty
+import metamodell.DomainModel
+import metamodell.businessobjects.Entity
+import metamodell.DomainProperty
 import groovy.lang.Singleton;
 import groovy.text.markup.AutoNewLineTransformer
 

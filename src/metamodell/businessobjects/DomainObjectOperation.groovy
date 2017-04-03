@@ -1,6 +1,6 @@
-package MetaModell.BusinessObjects
+package metamodell.businessobjects
 
-import MetaModell.DomainOperation
+import metamodell.DomainOperation
 
 
 class DomainObjectOperation extends DomainOperation {

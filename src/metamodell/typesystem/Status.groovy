@@ -1,4 +1,4 @@
-package MetaModell.TypeSystem
+package metamodell.typesystem
 
 class Status extends DomainType{
 

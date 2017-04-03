@@ -1,4 +1,4 @@
-package MetaModell.BusinessObjects
+package metamodell.businessobjects
 
 class Aggregate extends PersistentDO {
 

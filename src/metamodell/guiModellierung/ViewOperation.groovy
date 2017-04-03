@@ -1,6 +1,6 @@
-package MetaModell.GUIModellierung
+package metamodell.guiModellierung
 
-import MetaModell.DomainOperation
+import metamodell.DomainOperation
 
 class ViewOperation extends DomainOperation {
 	String beschriftung

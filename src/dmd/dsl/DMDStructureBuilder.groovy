@@ -1,10 +1,10 @@
 package dmd.dsl
 import java.lang.ClassValue.Identity
 
-import MetaModell.*
-import MetaModell.BusinessObjects.Entity
-import MetaModell.BusinessObjects.ValueObject
-import MetaModell.TypeSystem.*
+import metamodell.*
+import metamodell.businessobjects.Entity
+import metamodell.businessobjects.ValueObject
+import metamodell.typesystem.*
 
 class DMDStructureBuilder extends BuilderSupport {
 

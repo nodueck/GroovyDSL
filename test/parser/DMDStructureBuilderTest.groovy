@@ -3,12 +3,12 @@ import static org.junit.Assert.*
 
 import org.junit.Before
 
-import MetaModell.DomainProperty
-import MetaModell.BusinessObjects.ValueObject
-import MetaModell.TypeSystem.Text
+import metamodell.DomainProperty
+import metamodell.businessobjects.ValueObject
+import metamodell.typesystem.Text
 import parser.DMDFactoryBuilder
-import MetaModell.DomainAbstraction
-import MetaModell.DomainModel
+import metamodell.DomainAbstraction
+import metamodell.DomainModel
 import dmd.dsl.DMDStructureBuilder
 
 import org.junit.Test

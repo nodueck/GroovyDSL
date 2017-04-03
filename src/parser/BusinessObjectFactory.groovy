@@ -1,10 +1,10 @@
 package parser
 
 import java.util.Map
-import MetaModell.DomainModel
-import MetaModell.BusinessObjects.Aggregate
-import MetaModell.BusinessObjects.Entity
-import MetaModell.BusinessObjects.ValueObject
+import metamodell.DomainModel
+import metamodell.businessobjects.Aggregate
+import metamodell.businessobjects.Entity
+import metamodell.businessobjects.ValueObject
 import groovy.util.FactoryBuilderSupport
 
 class BusinessObjectFactory extends AbstractFactory {

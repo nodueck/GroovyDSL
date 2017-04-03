@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 import org.codehaus.groovy.control.CompilationFailedException;
-import MetaModell.DomainModel;
+import metamodell.DomainModel;
 import parser.DMDFactoryBuilder
 import generator.plantuml.DMDStructureToPlantUmlConverter;
 import groovy.lang.GroovyShell;

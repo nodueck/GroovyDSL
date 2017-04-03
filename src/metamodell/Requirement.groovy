@@ -1,4 +1,4 @@
-package MetaModell;
+package metamodell
 
 import groovy.transform.ToString
 

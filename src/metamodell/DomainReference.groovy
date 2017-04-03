@@ -1,4 +1,4 @@
-package MetaModell
+package metamodell
 
 class DomainReference {
 		

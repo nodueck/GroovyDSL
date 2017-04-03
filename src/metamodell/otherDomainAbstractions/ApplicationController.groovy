@@ -1,6 +1,6 @@
-package MetaModell.OtherDomainAbstractions
+package metamodell.otherDomainAbstractions
 
-import MetaModell.DomainAbstraction
+import metamodell.DomainAbstraction
 
 class ApplicationController extends DomainAbstraction {
 	

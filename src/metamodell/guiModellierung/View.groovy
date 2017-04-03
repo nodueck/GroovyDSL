@@ -1,6 +1,6 @@
-package MetaModell.GUIModellierung
+package metamodell.guiModellierung
 
-import MetaModell.DomainAbstraction
+import metamodell.DomainAbstraction
 
 class View extends DomainAbstraction {
 	String beschriftung

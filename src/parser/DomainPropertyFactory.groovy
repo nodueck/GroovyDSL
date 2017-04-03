@@ -2,14 +2,19 @@ package parser
 
 import java.util.Map
 
-import MetaModell.DomainAbstraction
-import MetaModell.DomainModel
-import MetaModell.DomainProperty
-import MetaModell.Requirement
-import MetaModell.BusinessObjects.Aggregate
-import MetaModell.BusinessObjects.Entity
-import MetaModell.BusinessObjects.ValueObject
-import MetaModell.TypeSystem.*
+import metamodell.DomainAbstraction
+import metamodell.DomainModel
+import metamodell.DomainProperty
+import metamodell.Requirement
+import metamodell.businessobjects.Aggregate
+import metamodell.businessobjects.Entity
+import metamodell.businessobjects.ValueObject
+import metamodell.typesystem.Datum
+import metamodell.typesystem.GeldBetrag
+import metamodell.typesystem.Status
+import metamodell.typesystem.Text
+import metamodell.typesystem.Wahrheitswert
+import metamodell.typesystem.Zahl
 import groovy.util.FactoryBuilderSupport
 
 class DomainPropertyFactory extends AbstractFactory {

@@ -1,4 +1,4 @@
-package MetaModell.BusinessObjects
+package metamodell.businessobjects
 
 import groovy.transform.ToString
 

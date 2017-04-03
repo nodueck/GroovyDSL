@@ -1,7 +1,7 @@
-package MetaModell.BusinessObjects
+package metamodell.businessobjects
 
-import MetaModell.DomainAbstraction
-import MetaModell.DomainProperty
+import metamodell.DomainAbstraction
+import metamodell.DomainProperty
 
 
 class DomainObject extends DomainAbstraction{
