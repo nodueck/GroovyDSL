@@ -1,0 +1,49 @@
+package ${rootPackage};
+
+import java.sql.SQLException;
+
+import de.bertelsmann.container.general.persistence.DBA4;
+import de.mathema.pride.DatabaseAdapter;
+import de.mathema.pride.RecordDescriptor;
+
+/**
+ * Dies ist der DBA zum Entity ${domainObject.name}Entity.
+ */
+public class ${domainObject.name}DBA extends DBA4 {
+
+	<% domainObject.domainProperties.each {
+		out << """public static final String DB_COL_${it.name.toUpperCase()} = "${it.name.toSnakeCase()}";
+	"""
+	}
+	%>
+
+	/** Name der Datenbank-Tabelle für das Entity ${domainObject.name}. */
+	public static final String DB_TABLE = "dmd_${domainObject.name.toSnakeCase()}";
+
+	public static final String ID_GENERATOR_SEQUENCE = "${domainObject.name.toSnakeCase()}_seq";
+	/** RecordDescriptor für das Entity ${domainObject.name}. */
+	protected static final RecordDescriptor RED = new RecordDescriptor(${fullName}.class, DB_TABLE, DBA4.RED, new String[][]{
+
+		<% domainObject.domainProperties.each {
+		out << """{DB_COL_${it.name.toUpperCase()}, "get${it.name.capitalize()}", "set${it.name.capitalize()}"},
+		"""
+	}
+	%>
+	});
+
+	/** Returns the RecordDescriptor. */
+	public RecordDescriptor getDescriptor() {
+		return RED;
+	}
+
+	/** Creates a DBA for the specified ${fullName} <code>e</code>. */
+	public ${domainObject.name}DBA(${fullName} e) {
+		super(e);
+	}
+
+	/** Macht Update nur auf bestimmter Felder, nicht auf ganzes Entity. */
+	public int update(String[] updateFields) throws SQLException {
+		return DatabaseAdapter.update(getEntity(), new String[] { "id" }, updateFields, ${domainObject.name}DBA.RED);
+	}
+
+}

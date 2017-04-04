@@ -10,7 +10,7 @@ import groovy.text.GStringTemplateEngine
 import groovy.text.SimpleTemplateEngine
 import groovy.text.markup.AutoNewLineTransformer
 
-public class DMDStructureToPlantUmlConverter {
+public class PlantUmlGenerator {
 	
 	public static String projectToPlantUml(DomainModel model){
 		def engine = new SimpleTemplateEngine(false) // set to true for verbose mode

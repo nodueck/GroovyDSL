@@ -1,0 +1,68 @@
+package $rootPackage;
+
+import java.math.BigDecimal;
+import java.util.Date;
+
+import de.bertelsmann.general.DMDIdentifiedEntity;
+import de.bertelsmann.general.DMDOwnerI;
+import de.bertelsmann.general.DMDUserContextI;
+
+/**
+ * $domainObjectType ${fullName}.
+ *
+ */
+public class ${fullName} extends DMDIdentifiedEntity implements DMDOwnerI
+{
+	<%
+	domainObject.domainProperties.each {
+		if(it.requirement)	out << "\n\t/* $it.requirement.content */\n\t"
+		out << """protected ${m2jMapper.getType(it)} $it.name;
+	"""
+	}
+	%>
+	<%
+	domainObject.domainReferences.each {
+		if(it.requirement)	out << "\n\t/* $it.requirement.content */\n\t"
+		out << """protected ${m2jMapper.getReferenceType(it)} ${it.referencedObject.name.toLowerCase()};
+	"""
+	}
+	%>
+	
+	<%
+	domainObject.domainProperties.each {
+		out << """public ${m2jMapper.getType(it)} get${it.name.capitalize()}(){
+		return $it.name;
+	}
+	
+	"""
+	}
+	%>
+	<%
+	domainObject.domainReferences.each {
+		out << """public ${m2jMapper.getReferenceType(it)} get${it.referencedObject.name.capitalize()}(){
+		return ${it.referencedObject.name.toLowerCase()};
+	}
+	
+	"""
+	}
+	%>
+	
+	<%
+	domainObject.domainProperties.each {
+		out << """public void set${it.name.capitalize()}(${m2jMapper.getType(it)} $it.name){
+		this.${it.name} = ${it.name};	
+	}
+	
+	"""
+	}
+	%>
+	<%
+	domainObject.domainReferences.each {
+		out << """public void set${it.referencedObject.name.capitalize()}(${m2jMapper.getReferenceType(it)} ${it.referencedObject.name.toLowerCase()} ){
+		this.${it.referencedObject.name.toLowerCase()} = ${it.referencedObject.name.toLowerCase()};
+	}
+	
+	"""
+	}
+	%>
+}

@@ -6,4 +6,5 @@ class DomainReference {
 	boolean foreignKey = false //macht nur Sinn bei einer hasOne Beziehung
 	String referenceType
 	DomainAbstraction referencedObject
+	Requirement requirement
 }

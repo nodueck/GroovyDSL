@@ -7,7 +7,8 @@ import java.util.Scanner;
 import org.codehaus.groovy.control.CompilationFailedException;
 import metamodell.DomainModel;
 import parser.DMDFactoryBuilder
-import generator.plantuml.DMDStructureToPlantUmlConverter;
+import generator.java.JavaGenerator
+import generator.plantuml.PlantUmlGenerator;
 import groovy.lang.GroovyShell;
 import groovy.lang.Script;
 
@@ -31,7 +32,16 @@ class DSL {
 		} catch (CompilationFailedException | IOException e) {
 			throw new DSLException(e);
 		}
-		return DMDStructureToPlantUmlConverter.projectToPlantUml(result);
+		return PlantUmlGenerator.projectToPlantUml(result);
+	}
+	
+	public void generateJava(File file) throws Exception {
+		try {
+			parseScript(file);
+		} catch (CompilationFailedException | IOException e) {
+			throw new DSLException(e);
+		}
+		JavaGenerator.modelToJavaSource(result);
 	}
 	
 }

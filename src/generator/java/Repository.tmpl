@@ -1,0 +1,141 @@
+package sums.billing.internal;
+
+import ${rootPackage}.${repository.entity.name}Entity;
+
+import java.util.*;
+import spine.strategies.Exposer;
+import cuba.annotation.*;
+import de.mathema.pride.*;
+import de.bertelsmann.coins.general.error.Assert;
+import de.bertelsmann.general.*;
+import de.bertelsmann.general.Entity4.PopulateMode;
+import de.bertelsmann.coins.container.general.Log4JTracingInterceptor;
+import de.bertelsmann.coins.general.error.Assert;
+import de.bertelsmann.container.general.persistence.*;
+
+/** 
+ * Diese Klasse enthält in die generiertem CRUD-Methoden zu den Entities / Aggregates <UL>
+ *  	<li>${repository.enitity.name}Entity
+ * </UL>
+ * Diese abstrakte Klasse wird durch Klasse <i>${repository.name}RepositoryImpl</i> implementiert und wird letzendlich als Interface
+ * <i>common.${repository.name}RepositoryImpl</i> zur Verfügung gestellt. 
+ * Manuell Erweiterungen können dort (d.h in I + Impl) umgesetzt werden.
+ * Die abstrake und diese Klasse sind nach dem <a href = "http://www.research.ibm.com/designpatterns/pubs/gg.html">
+ * Generation Gap Pattern </a> gebaut.<P>
+ * <b>Diese Klasse ist generiert</b> mittels Template RepositoryImpl::RepoImplDefinition.<BR/>
+ * Diese Klasse ist ein 100-% Generat. Manuelle Anpassungen bleiben beim nächsten Generatorlauf nicht erhalten.
+ */
+@Interceptors(value = { Log4JTracingInterceptor.class })
+public abstract class Abstract${repository.name}RepositoryImpl extends DMDAbstractRepository implements Abstract${repository.name}RepositoryI {
+
+	/** {@inheritDoc} */
+	public ${repository.enitity.name}Entity create${repository.entity.name}(${repository.enitity.name}Entity pContentProvider) {
+		try {
+			return (${repository.enitity.name}Entity) create(new${repository.entity.name}DBA(p${repository.entity.name}),
+					${repository.entity.name}DBA.ID_GENERATOR_SEQUENCE);
+		}
+
+		catch (Exception e) {
+			throw handleUnexpectedException(e);
+		}
+
+	}
+
+	/** {@inheritDoc} */
+	public ${repository.enitity.name}Entity save${repository.entity.name}NullSafe(${repository.enitity.name}Entity p${repository.entity.name})
+			throws LockException {
+		if (p${repository.entity.name} == null) {
+			return null;
+		}
+		if (!isInDB(p${repository.entity.name})) {
+			return create${repository.entity.name}(p${repository.entity.name});
+		}
+		return update${repository.entity.name}(p${repository.entity.name});
+	}
+
+	/** {@inheritDoc} */
+	public ${repository.enitity.name}Entity update${repository.entity.name}(${repository.enitity.name}Entity p${repository.entity.name}) throws LockException {
+		try {
+			return (${repository.enitity.name}Entity) update(new${repository.entity.name}DBA(p${repository.entity.name}));
+		}
+
+		catch (Exception e) {
+			throw handleUnexpectedButLockedException(e);
+		}
+
+	}
+
+	/** {@inheritDoc} */
+	@TransactionAttribute(TransactionAttributeType.SUPPORTS)
+	public ${repository.enitity.name}Entity find${repository.entity.name}ById(Long id) {
+		if (id == null) {
+			//id könnte null sein, wenn enrich() optionale Assoziationen auflöst
+			return null;
+		}
+		// userContext wird hier nicht weiter ausgewertet, man braucht ihn halt für Konstruktor
+		return find${repository.entity.name}ById(new ${repository.enitity.name}Entity(userContext, id));
+	}
+
+	/** {@inheritDoc} */
+	public ${repository.enitity.name}Entity find${repository.entity.name}ById(${repository.enitity.name}Entity entity) {
+		try {
+			return (${repository.enitity.name}Entity) find(new${repository.entity.name}DBA(entity));
+		}
+
+		catch (Exception e) {
+			throw handleUnexpectedException(e);
+		}
+
+	}
+
+	/** {@inheritDoc} */
+	@TransactionAttribute(TransactionAttributeType.SUPPORTS)
+	public ${repository.enitity.name}Entity[] queryAll${repository.entity.name}s() {
+		try {
+			// userContext wird hier nicht weiter ausgewertet, man braucht ihn halt für Construktor
+			${repository.entity.name}DBA dba = new${repository.entity.name}DBA(new ${repository.enitity.name}Entity(userContext));
+			return (${repository.enitity.name}Entity[]) toArray(dba.queryAll(), dba);
+		} catch (NoResultsException e) {
+			return new ${repository.enitity.name}Entity[] {};
+		} catch (Exception e) {
+			throw handleUnexpectedException(e);
+		}
+	}
+
+	/** {@inheritDoc} */
+	@TransactionAttribute(TransactionAttributeType.SUPPORTS)
+	public ${repository.enitity.name}Entity[] query${repository.entity.name}s(${repository.entity.name}Query query) {
+		try {
+			${repository.entity.name}DBA dba = new${repository.entity.name}DBA(new ${repository.enitity.name}Entity(query.getUserContext()));
+			ResultIterator ri = query(dba, query);
+			${repository.enitity.name}Entity[] result = (${repository.enitity.name}Entity[]) toBoundedArray(ri, dba,
+					query.getMaxAnzahlTreffer());
+			if (result == null)
+				result = new ${repository.enitity.name}Entity[0];
+			return result;
+		} catch (BasicServiceException e) {
+			if (e.getCause() instanceof NoResultsException) {
+				return new ${repository.enitity.name}Entity[] {};
+			}
+			handleUnexpectedException(e);
+		} catch (Exception e) {
+			throw handleUnexpectedException(e);
+		}
+		return null;
+	}
+
+	/** 
+	 * Standard DBA-Factory-Methode für den DBA zu ${repository.enitity.name}Entity.
+	 * Sinn dieser Factory-Methode ist es, die Erweiterbarkeit durch Vererben zu ermöglichen.
+	 */
+	protected ${repository.entity.name}DBA new${repository.entity.name}DBA(${repository.enitity.name}Entity p${repository.entity.name}) {
+		return new ${repository.entity.name}DBA(p${repository.entity.name});
+	}
+
+	/** Implementierung von Exposer.expose. Stellt das Interne Interface bereit  */
+	@SuppressWarnings("unchecked")
+	public <T> T expose(Class<T> interfaceType) {
+		return interfaceType == ${repository.name}RepositoryI.class ? (T) getContext().getInternalRef() : null;
+	}
+
+}
