@@ -2,10 +2,13 @@ package generator
 import static org.junit.Assert.*
 
 import java.awt.dnd.DragSourceListener
+import java.io.File
 
 import org.junit.Test
 
 import dmd.dsl.DSL
+import groovy.json.StringEscapeUtils
+import metamodell.DomainModel
 
 
 /**
@@ -24,25 +27,32 @@ class PlantUmlGeneratorTest {
 """@startUml
 
 class Customer << Entity >> {
-	id 
-	firstName 
-	lastName 
+	
+	id
+	firstName
+	lastName
+	
 }
-note \"Das erste Entity das beschrieben wird: Customer -> ist trivial\\n 2 Zeilen oder mehr Text, falls die Beschreibung mal länger sein sollte\" as NCustomer
+note "Das erste Entity das beschrieben wird: Customer -> ist trivial\\n 2 Zeilen oder mehr Text, falls die Beschreibung mal länger sein sollte" as NCustomer
 Customer .. NCustomer
 
+Customer -- "*" Contract
+
+
 class Contract << Entity >> {
-	id 
-	tarif 
+	
+	id
+	tarif
+	
 }
-note \" Normaler Vertrag\" as NContract
+note " Normaler Vertrag" as NContract
 Contract .. NContract
 
-Customer --  \"*\" Contract
 
 
-@enduml"""
-		
+@enduml """
+
+
 		assertEquals(expectedPlantUMLScript,plantUmlScript) 
 	}
 

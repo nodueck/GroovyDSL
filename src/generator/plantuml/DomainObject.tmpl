@@ -1,0 +1,21 @@
+
+class ${domainObject.name} << ${domainObject.class.simpleName} >> {
+	
+	<% 
+	//Properties hinzufügen. Wenns komplexer wird in ein eigenes Template auslagern
+	domainObject.domainProperties.each { 
+	out << """${it.name}
+	"""
+	} 
+	%>
+}
+note "<% out << generator.plantuml.DMDStructureToPlantUmlConverter.getNote(domainObject) %>" as N${domainObject.name}
+${domainObject.name} .. N${domainObject.name}
+
+<% 	domainObject.domainReferences.each { 
+	out << "${domainObject.name}"
+	out << " -- "
+	out << (it.referenceType == 'hasMany' ? '"*" ' : '"1" ') 
+	out << "${it.referencedObject.name}\n" 
+	}	
+%>

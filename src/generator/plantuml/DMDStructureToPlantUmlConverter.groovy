@@ -4,52 +4,32 @@ import metamodell.DomainModel
 import metamodell.businessobjects.DomainObject
 import metamodell.businessobjects.Entity
 import metamodell.DomainProperty
+import groovy.json.StringEscapeUtils
 import groovy.lang.Singleton;
+import groovy.text.GStringTemplateEngine
+import groovy.text.SimpleTemplateEngine
 import groovy.text.markup.AutoNewLineTransformer
 
 public class DMDStructureToPlantUmlConverter {
 	
-	
-	public static String projectToPlantUml(DomainModel project){
-		StringBuilder strB = new StringBuilder()
-		strB.append("@startUml\n")
-		strB.append("\n")
-		project.domainObjects.each { domainObj -> strB.append(domainObjectToPlantUml(domainObj)) }
-		project.domainObjects.each { domainObj -> strB.append(domainReferencesToPlantUml(domainObj)) }
-		strB.toString()
-		strB.append("@enduml")
+	public static String projectToPlantUml(DomainModel model){
+		def engine = new SimpleTemplateEngine(false) // set to true for verbose mode
+		def template = engine.createTemplate(new File("src/generator/plantuml/DomainModel.tmpl")).make([domainModel: model])
+		return template.toString()
 	}
 	
-	private static String domainObjectToPlantUml(DomainObject domainObj){
-		StringBuilder strB = new StringBuilder()
-		strB.append("class $domainObj.name << Entity >> {\n");
-		domainObj.domainProperties.each { attr ->  strB.append("\t$attr.name \n") }
-		strB.append("}\n")
-		strB.append(note(domainObj.name, domainObj.requirement.content))
-		strB.append("\n\n")
-		strB.toString()
+	public static String domainObjectToPlantUml(DomainObject domainObj){
+		def engine = new SimpleTemplateEngine(false) // set to true for verbose mode
+		def template = engine.createTemplate(new File("src/generator/plantuml/DomainObject.tmpl")).make([domainObject: domainObj])
+		return template.toString()
 	}
 	
-	private static String domainReferencesToPlantUml(DomainObject domainObj){
-		StringBuilder strB = new StringBuilder()
-		domainObj.domainReferences.each { reference -> 
-			strB.append("$domainObj.name")
-			strB.append(" -- ")
-			strB.append(reference.referenceType == "hasMany" ? ' "*" ' : ' "1" ')
-			strB.append("$reference.referencedObject.name") 
-			} 
-		strB.append("\n\n")
-		strB.toString()
-	}
 	
-	private static String note(String to, String note){
-		if(note){
-			def noteName = "N$to"
-			note = note.replace("\n", "\\n").replace("\r", "").replace("\t","")
-			def plantUmlCmd = "note \"$note\" as $noteName\n"
-			plantUmlCmd += "$to .. $noteName"
-			return plantUmlCmd
+	public static String getNote(DomainObject domainObj){
+		if(domainObj.requirement.content){
+			String escaped = StringEscapeUtils.escapeJava(domainObj.requirement.content)
+			escaped = escaped.replace("\\n", "\\\\n").replace("\\t", "")
+			return StringEscapeUtils.unescapeJava(escaped)
 		}
-		return ""
 	}
 }

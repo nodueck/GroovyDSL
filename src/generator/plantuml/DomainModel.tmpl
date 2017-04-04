@@ -1,0 +1,7 @@
+@startUml
+<%
+domainModel.domainObjects.each { domainObj ->
+	out << generator.plantuml.DMDStructureToPlantUmlConverter.domainObjectToPlantUml(domainObj)
+		}
+%>
+@enduml 

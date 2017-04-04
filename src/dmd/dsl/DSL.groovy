@@ -15,7 +15,7 @@ class DSL {
 
 	DomainModel result;
 	
-	private void loadScript(File file) throws CompilationFailedException, IOException{
+	private void parseScript(File file) throws CompilationFailedException, IOException{
 //		String scriptText = new Scanner(file).useDelimiter("\\Z").next();
 		//Wichtig den eigenen Classloader zu nutzen, da beim Aufruf durch das EclipsePlugin dmd.dsl.DMDStructureBuilder nicht gefunden wird
 		
@@ -27,7 +27,7 @@ class DSL {
 
 	public String generatePlantUml(File file) throws DSLException{
 		try {
-			loadScript(file);
+			parseScript(file);
 		} catch (CompilationFailedException | IOException e) {
 			throw new DSLException(e);
 		}
