@@ -26,9 +26,9 @@ class DSL {
 		result = ((DomainModel) script.run());
 	}
 
-	public String generatePlantUml(File file) throws DSLException{
+	public String generatePlantUml(File script) throws DSLException{
 		try {
-			parseScript(file);
+			parseScript(script);
 		} catch (CompilationFailedException | IOException e) {
 			throw new DSLException(e);
 		}

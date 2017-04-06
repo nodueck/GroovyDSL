@@ -5,7 +5,7 @@ import metamodell.DomainReference
 import metamodell.businessobjects.DomainObject
 
 @Singleton
-class Model2SQLMapper {
+class Model2SqlMapper {
 	
 	def typeSystemMapping =
 	[Text: 			"VARCHAR(50)",

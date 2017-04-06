@@ -1,4 +1,4 @@
 @startUml
-<% domainModel.domainObjects.each { out << generator.plantuml.PlantUmlGenerator.domainObjectToPlantUml(it)	} %>
-<% domainModel.otherDomainAbstractions.each {	out << generator.plantuml.PlantUmlGenerator.otherDomainAbstractionsToPlantUml(it) } %>
+<% domainModel.domainObjects.each { out << generator.domainObjectToPlantUml(it)	} %>
+<% domainModel.otherDomainAbstractions.each {	out << generator.otherDomainAbstractionsToPlantUml(it) } %>
 @enduml 

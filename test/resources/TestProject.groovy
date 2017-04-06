@@ -5,8 +5,8 @@ Project.Test{
 		description """Das erste Entity das beschrieben wird: Customer -> ist trivial
 						 2 Zeilen oder mehr Text, falls die Beschreibung mal länger sein sollte"""
 		
-		attr	firstName, 		type:Text,		description: "Vorname",	 dbName: "first_name"
-		attr	lastName, 		type:Text,		description: "Nachname"
+		attr	firstname, 		type:Text,		description: "Vorname",	 dbName: "first_name"
+		attr	lastname, 		type:Text,		description: "Nachname"
 		hasMany	Contract
 	}
 	

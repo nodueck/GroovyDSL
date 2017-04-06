@@ -12,7 +12,7 @@ import de.mathema.pride.RecordDescriptor;
 public class ${domainObject.name}DBA extends DBA4 {
 
 	<% domainObject.domainProperties.each {
-		out << """public static final String DB_COL_${it.name.toUpperCase()} = "${it.name.toSnakeCase()}";
+		out << """public static final String DB_COL_${it.name.toSnakeCase().toUpperCase()} = "${it.name.toSnakeCase()}";
 	"""
 	}
 	%>
@@ -25,7 +25,7 @@ public class ${domainObject.name}DBA extends DBA4 {
 	protected static final RecordDescriptor RED = new RecordDescriptor(${fullName}.class, DB_TABLE, DBA4.RED, new String[][]{
 
 		<% domainObject.domainProperties.each {
-		out << """{DB_COL_${it.name.toUpperCase()}, "get${it.name.capitalize()}", "set${it.name.capitalize()}"},
+		out << """{DB_COL_${it.name.toSnakeCase().toUpperCase()}, "get${it.name.capitalize()}", "set${it.name.capitalize()}"},
 		"""
 	}
 	%>

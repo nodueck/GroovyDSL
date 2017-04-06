@@ -20,13 +20,14 @@ class SQLGenerator {
 				def entity = domainObj as Entity
 				entity.dbName = entity.dbName ?: entity.name.toSnakeCase()
 				// define binding
-				def bind = [entity: entity, m2sqlMapper: Model2SQLMapper.instance]
+				def bind = [entity: entity, m2sqlMapper: Model2SqlMapper.instance]
 				
 				// generate business object
-				def javaObjectFileName = "${entity.name}.sql"
-				def javaObjectFile = new File(path, javaObjectFileName)
-				def template = engine.createTemplate(new File("src/generator/sql/templates/SQL.tmpl")).make(bind)
-				javaObjectFile.write template.toString()
+				def sqlFileName = "${entity.name}.sql"
+				def sqlFile = new File(path, sqlFileName)
+				def templateFilePath = this.getResource("templates/SQL.tmpl")
+				def template = engine.createTemplate(templateFilePath).make(bind)
+				sqlFile.write template.toString()
 			
 			}
 		}

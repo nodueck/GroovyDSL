@@ -3,7 +3,7 @@ class ${domainAbstr.name} << ${domainAbstr.class.simpleName} >> {
 	
 }
 <% if(domainAbstr.requirement) {
- out << "note \"${generator.plantuml.PlantUmlGenerator.getNote(domainAbstr)}\" as N${domainAbstr.name}\n"
+ out << "note \"${generator.getNote(domainAbstr)}\" as N${domainAbstr.name}\n"
  out << "${domainAbstr.name} .. N${domainAbstr.name}"
  } %>
 

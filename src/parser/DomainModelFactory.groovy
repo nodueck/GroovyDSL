@@ -15,7 +15,7 @@ class DomainModelFactory extends AbstractFactory{
 			throws InstantiationException, IllegalAccessException {
 			
 			if(value == null && map.isEmpty()){
-				def domain = DomainModel.getInstance()
+				def domain = new DomainModel()
 				domain.name = name
 				return domain
 			} else {

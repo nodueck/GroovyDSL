@@ -7,6 +7,7 @@ import java.io.File
 import org.junit.Test
 
 import dmd.dsl.DSL
+import generator.plantuml.PlantUmlGenerator
 import groovy.json.StringEscapeUtils
 import metamodell.DomainModel
 
@@ -22,6 +23,7 @@ class PlantUmlGeneratorTest {
 	public void testGeneratePlantUML() {
 		DSL script = new DSL()
 		String plantUmlScript = script.generatePlantUml(new File("test/resources/TestProject.groovy"))
+		plantUmlScript = script.generatePlantUml(new File("test/resources/TestProject.groovy"))
 		
 		String expectedPlantUMLScript =
 """@startUml
