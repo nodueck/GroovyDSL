@@ -8,6 +8,6 @@ class SQLGeneratorTest {
 	@Test
 	public void testGenerateSQL() {
 		DSL script = new DSL()
-		script.generateSQL(new File("test/resources/TestProject.groovy"))
+		script.generateSQL(new File("test/resources"))
 	}
 }

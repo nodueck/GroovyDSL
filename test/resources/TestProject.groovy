@@ -1,5 +1,4 @@
-
-Project.Test{
+module("CustomerContract"){
 
 	entity(Customer){
 		description """Das erste Entity das beschrieben wird: Customer -> ist trivial

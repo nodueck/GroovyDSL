@@ -15,12 +15,14 @@ import metamodell.DomainModel
 import groovy.util.ObjectGraphBuilder.DefaultNewInstanceResolver
 
 import org.junit.Test
+
+import dmd.dsl.DSL
 /**
  * Assures that model is populated correctly
  * @author DUEC007
  *
  */
-class DMDStructureBuilderTest {
+class DMDFactoryBuilderTest {
 	
 	@Before
 	void setUp() {
@@ -118,6 +120,12 @@ class DMDStructureBuilderTest {
 		assertEquals(customer, contract2customerReference.referencedObject)
 		assertEquals("has", contract2customerReference.referenceType)
 		
+	}
+	
+	@Test
+	public void testFactoryBuilder() {
+		DSL dslScript = new DSL()
+		dslScript.parseDirectory(new File("test/resources/"));
 	}
 
 }

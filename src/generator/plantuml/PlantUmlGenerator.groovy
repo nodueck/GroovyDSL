@@ -13,7 +13,6 @@ public class PlantUmlGenerator {
 		def engine = new SimpleTemplateEngine(false) // set to true for verbose mode
 		def templateFilePath = this.getResource("templates/DomainModel.tmpl")
 		def template = engine.createTemplate(templateFilePath).make([domainModel: model, generator: PlantUmlGenerator])
-		println model.domainObjects
 		return template.toString()
 	}
 	

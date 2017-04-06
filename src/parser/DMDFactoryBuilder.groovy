@@ -12,6 +12,7 @@ class DMDFactoryBuilder extends FactoryBuilderSupport {
 	}
 	
 	def registerObjectFactories() {
+		registerFactory("module", new DomainModelFactory())
 		registerFactory("Test", new DomainModelFactory())
 		registerFactory("entity", new BusinessObjectFactory())
 		registerFactory("valueObject", new BusinessObjectFactory())

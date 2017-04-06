@@ -9,6 +9,7 @@ import parser.DMDFactoryBuilder
 import generator.java.JavaGenerator
 import generator.plantuml.PlantUmlGenerator;
 import generator.sql.SQLGenerator
+import groovy.io.FileType
 import groovy.lang.GroovyShell;
 import groovy.lang.Script;
 
@@ -16,41 +17,62 @@ class DSL {
 
 	DomainModel result;
 	
-	private void parseScript(File file) throws CompilationFailedException, IOException{
-//		String scriptText = new Scanner(file).useDelimiter("\\Z").next();
-		//Wichtig den eigenen Classloader zu nutzen, da sonst beim Aufruf durch das EclipsePlugin dmd.dsl.DMDStructureBuilder nicht gefunden wird
-		
-		def binding = new Binding([Project: new DMDFactoryBuilder()])
-		
-		Script script = new GroovyShell(this.class.classLoader, binding).parse(file); 
-		result = ((DomainModel) script.run());
-	}
-
 	public String generatePlantUml(File script) throws DSLException{
 		try {
-			parseScript(script);
+			parseFile(script);
 		} catch (CompilationFailedException | IOException e) {
 			throw new DSLException(e);
 		}
-		return PlantUmlGenerator.model2PlantUml(result);
+		
+		PlantUmlGenerator.model2PlantUml(result);
 	}
 	
 	public void generateJava(File file) throws Exception {
 		try {
-			parseScript(file);
+			if(file.isDirectory()){
+				parseDirectory(file)
+			} else {
+				parseFile(file)
+			}
 		} catch (CompilationFailedException | IOException e) {
 			throw new DSLException(e);
 		}
+		
 		JavaGenerator.model2JavaSource(result);
 	}
 	
 	public void generateSQL(File file) throws Exception {
 		try {
-			parseScript(file);
+			if(file.isDirectory()){
+				parseDirectory(file)
+			} else {
+				parseFile(file)
+			}
 		} catch (CompilationFailedException | IOException e) {
 			throw new DSLException(e);
 		}
+		
 		SQLGenerator.model2SQL(result);
 	}
 	
+	
+	private void parseFile(File file) throws CompilationFailedException, IOException{
+		Script script = new GroovyShell(this.class.classLoader).parse(file);
+		result = new DMDFactoryBuilder().build(script)
+	}
+	
+	private void parseDirectory(File dir){
+		DomainModel domainModel = new DomainModel();
+		domainModel.setName("ProjectName")
+		domainModel.path = ""
+		
+		dir.eachFileRecurse(FileType.FILES) { file ->
+			Script script = new GroovyShell().parse(file);
+			DomainModel modul = new DMDFactoryBuilder().build(script)
+			modul.path = file.getParent()
+			
+			domainModel.modules.add(modul)
+		}
+		result = domainModel
+	}
 }

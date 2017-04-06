@@ -53,6 +53,9 @@ class BusinessObjectFactory extends AbstractFactory {
 	public void onNodeCompleted(FactoryBuilderSupport builder, Object parent, Object node) {
 	}
 
-		
+	def propertyMissing(String name) {
+		//add to list and initalize later
+		name
+	}
 
 }

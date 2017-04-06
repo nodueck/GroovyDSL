@@ -14,14 +14,13 @@ class DomainModelFactory extends AbstractFactory{
 	public Object newInstance(FactoryBuilderSupport builder, Object name, Object value, Map map)
 			throws InstantiationException, IllegalAccessException {
 			
-			if(value == null && map.isEmpty()){
+			if(map.isEmpty()){
 				def domain = new DomainModel()
-				domain.name = name
+				domain.name = value
 				return domain
 			} else {
 				throw new Exception("$name called: DomainModel $value doesn't expect any parameters")
 			}
-			
 	}
 	
 	@Override

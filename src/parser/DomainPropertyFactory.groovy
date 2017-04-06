@@ -65,7 +65,6 @@ class DomainPropertyFactory extends AbstractFactory {
 	
 	@Override
 	public void setParent(FactoryBuilderSupport builder, Object parent, Object child) {
-		println parent.name
 		if(parent instanceof DomainAbstraction){
 			(parent as DomainAbstraction).domainProperties.add(child)
 		} else {
