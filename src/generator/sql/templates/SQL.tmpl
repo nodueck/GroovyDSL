@@ -1,0 +1,22 @@
+DROP TABLE ${entity.dbName};
+DELETE FROM SEQUENCES WHERE SEQ_NAME = '${entity.dbName}_seq';
+
+CREATE TABLE dmd_${entity.dbName}
+ (
+ 	<% entity.domainProperties.each { prop ->
+    	out << """${prop.name.toSnakeCase()}			${m2sqlMapper.getType(prop)}		null,
+	"""
+    } %>
+    client				VARCHAR(10)		not null,
+    subclient			NUMERIC(5)		not null,
+    id					NUMERIC(10)		not null,
+    def_time			DATETIME		not null,
+    def_user			VARCHAR(20)		not null,
+    mod_time			DATETIME		null    ,
+    mod_user			VARCHAR(20)		null    ,
+    lock_no				NUMERIC(2)		not null,
+    CONSTRAINT ${entity.dbName}_PK PRIMARY KEY (client,subclient,id)
+ );
+ 
+INSERT INTO SEQUENCES (client, subclient, def_user, def_time, mod_user, mod_time, seq_name, seq_max, lock_no) VALUES (
+	'idgen',0,'dgen',SYSDATE,NULL,NULL,'${entity.dbName}_seq',0,0);

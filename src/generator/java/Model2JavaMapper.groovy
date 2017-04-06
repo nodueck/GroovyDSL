@@ -12,8 +12,8 @@ class Model2JavaMapper {
 	 Datum: 		"Date",
 	 GeldBetrag: 	"BigDecimal",
 	 Status: 		"String",
-	 Wahrheitswert: "Boolean",
-	 Zahl: 			"Long"]
+	 Wahrheitswert: "boolean",
+	 Zahl: 			"long"]
 
 	String getType(DomainProperty domainProp){
 		return typeSystemMapping.get(domainProp.type.class.simpleName)

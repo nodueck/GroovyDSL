@@ -12,7 +12,6 @@ import parser.DMDFactoryBuilder
 import parser.SymbolicTable.NameTypePair
 import metamodell.DomainAbstraction
 import metamodell.DomainModel
-import dmd.dsl.DMDStructureBuilder
 import groovy.util.ObjectGraphBuilder.DefaultNewInstanceResolver
 
 import org.junit.Test

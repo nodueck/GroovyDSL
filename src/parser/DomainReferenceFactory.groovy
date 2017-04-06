@@ -10,7 +10,7 @@ import metamodell.businessobjects.Entity
 import metamodell.businessobjects.ValueObject
 import groovy.util.FactoryBuilderSupport
 
-class DomainObjectReferenceFactory extends AbstractFactory {
+class DomainReferenceFactory extends AbstractFactory {
 
 	def nameTypePair
 		

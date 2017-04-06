@@ -50,6 +50,16 @@ Contract .. NContract
 
 
 
+
+class CustomerRepository << Repository >> {
+	
+}
+note "Das Repository für den Customer" as NCustomerRepository
+CustomerRepository .. NCustomerRepository
+
+CustomerRepository -- Customer
+
+
 @enduml """
 
 

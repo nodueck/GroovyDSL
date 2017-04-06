@@ -3,16 +3,23 @@ package $rootPackage;
 import java.math.BigDecimal;
 import java.util.Date;
 
-import de.bertelsmann.general.DMDIdentifiedEntity;
-import de.bertelsmann.general.DMDOwnerI;
+import de.bertelsmann.general.Entity4;
 import de.bertelsmann.general.DMDUserContextI;
 
 /**
  * $domainObjectType ${fullName}.
  *
  */
-public class ${fullName} extends DMDIdentifiedEntity implements DMDOwnerI
-{
+public class ${fullName} extends Entity4 {
+
+	public ${fullName}(DMDUserContextI uc, long id) {
+		super(uc, id);
+	}
+	
+	public ${fullName}(DMDUserContextI uc) {
+		super(uc);
+	}
+
 	<%
 	domainObject.domainProperties.each {
 		if(it.requirement)	out << "\n\t/* $it.requirement.content */\n\t"

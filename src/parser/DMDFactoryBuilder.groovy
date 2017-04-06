@@ -5,15 +5,7 @@ import java.util.logging.Logger
 
 import groovy.util.FactoryBuilderSupport
 
-class DMDFactoryBuilder extends FactoryBuilderSupport {
-	
-	/**
-	 * Wird zwischen den Modellelementen referenziert ist eine Symbolic Table erforderlich.
-	 * Dies speichert die zu referenzierenden Objekte.
-	 * Bsp.: Contract referenziert einen Customer. Anstatt den Customer im Modell zu suchen, kann er leicht in der Symbolic Table gefunden werden.
-	 */
-	
-	
+class DMDFactoryBuilder extends FactoryBuilderSupport {	
 	
 	public DMDFactoryBuilder(boolean init = true) {
 		super(init)
@@ -25,8 +17,9 @@ class DMDFactoryBuilder extends FactoryBuilderSupport {
 		registerFactory("valueObject", new BusinessObjectFactory())
 		registerFactory("attr", new DomainPropertyFactory())
 		registerFactory("description", new RequirementFactory())
-		registerFactory("has", new DomainObjectReferenceFactory())
-		registerFactory("hasMany", new DomainObjectReferenceFactory())
+		registerFactory("has", new DomainReferenceFactory())
+		registerFactory("hasMany", new DomainReferenceFactory())
+		registerFactory("repository", new RepositoryFactory())
 	}
 	
 	def propertyMissing(String name) {

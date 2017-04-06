@@ -1,0 +1,39 @@
+package ${rootPackage};
+
+import java.util.*;
+import cuba.annotation.*;
+import de.mathema.pride.*;
+import de.bertelsmann.general.*;
+import de.bertelsmann.container.general.persistence.LockException;
+
+/** 
+ * Interface mit den Standard-CRUD-Methoden zum BillingRepository. Dieses Repository verwaltet die Entities/Aggregates <UL>
+ *  	<li>${repository.firstEntity.name}Entity
+ * </UL>
+ * Dieses Methoden dieses Interface werden in Sub-Interface <i>common.BillingRepositoryImpl</i>
+ * "öffentlich" zur Verfügung gestellt. Manuell Erweiterungen können dort umgesetzt werden.
+ * Dieses und das Sub-Interface sind nach dem <a href = "http://www.research.ibm.com/designpatterns/pubs/gg.html">
+ * Generation Gap Pattern </a> gebaut.<P>
+ * <b>Dieses Interface ist generiert</b> nach mittels Template RepositoryI::InternallDefinition.<BR/>
+ * Diese Klasse ist ein 100-& Generat. Manuelle Anpassungen bleiben beim nächsten Generatorlauf nicht erhalten
+ */
+public interface ${repository.name}I {
+
+	public ${repository.firstEntity.name}Entity create${repository.firstEntity.name}(${repository.firstEntity.name}Entity p${repository.firstEntity.name});
+
+	public ${repository.firstEntity.name}Entity save${repository.firstEntity.name}NullSafe(${repository.firstEntity.name}Entity p${repository.firstEntity.name})
+			throws LockException;
+
+	public ${repository.firstEntity.name}Entity update${repository.firstEntity.name}(${repository.firstEntity.name}Entity p${repository.firstEntity.name}) throws LockException;
+
+	/** Sucht ein ${repository.firstEntity.name} anhand seiner techn Id. */
+	public ${repository.firstEntity.name}Entity find${repository.firstEntity.name}ById(Long id);
+
+	/** Sucht ein ${repository.firstEntity.name} anhand der Id des übergebenen ${repository.firstEntity.name}Entity. */
+	public ${repository.firstEntity.name}Entity find${repository.firstEntity.name}ById(${repository.firstEntity.name}Entity e);
+
+	public ${repository.firstEntity.name}Entity[] queryAll${repository.firstEntity.name}s();
+
+	//public ${repository.firstEntity.name}Entity[] query${repository.firstEntity.name}s(${repository.firstEntity.name}Query query);
+
+}

@@ -9,7 +9,7 @@ class ${domainObject.name} << ${domainObject.class.simpleName} >> {
 	} 
 	%>
 }
-note "<% out << generator.plantuml.DMDStructureToPlantUmlConverter.getNote(domainObject) %>" as N${domainObject.name}
+note "<% out << generator.plantuml.PlantUmlGenerator.getNote(domainObject) %>" as N${domainObject.name}
 ${domainObject.name} .. N${domainObject.name}
 
 <% 	domainObject.domainReferences.each { 
