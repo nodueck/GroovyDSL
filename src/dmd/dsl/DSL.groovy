@@ -27,6 +27,11 @@ class DSL {
 		PlantUmlGenerator.model2PlantUml(result);
 	}
 	
+	/**
+	 * Generates Java Files
+	 * @param file path to a file or directory
+	 * @throws Exception
+	 */
 	public void generateJava(File file) throws Exception {
 		try {
 			if(file.isDirectory()){
@@ -41,6 +46,11 @@ class DSL {
 		JavaGenerator.model2JavaSource(result);
 	}
 	
+	/**
+	 * Generates SQL Files
+	 * @param file path to a file or directory
+	 * @throws Exception
+	 */
 	public void generateSQL(File file) throws Exception {
 		try {
 			if(file.isDirectory()){

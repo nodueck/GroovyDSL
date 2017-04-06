@@ -4,7 +4,7 @@ module("CustomerContract"){
 		description """Das erste Entity das beschrieben wird: Customer -> ist trivial
 						 2 Zeilen oder mehr Text, falls die Beschreibung mal länger sein sollte"""
 		
-		attr	firstname, 		type:Text,		description: "Vorname",	 dbName: "first_name"
+		attr	firstname, 		type:Text,		description: "Vorname"
 		attr	lastname, 		type:Text,		description: "Nachname"
 		hasMany	Contract
 	}

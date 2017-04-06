@@ -35,8 +35,7 @@ class SQLGenerator {
 				def bind = [entity: entity, m2sqlMapper: Model2SqlMapper.instance]
 
 				// generate business object
-				def sqlFileName = "${entity.name}.sql"
-				def sqlFile = new File(path, sqlFileName)
+				def sqlFile = new File(path, "${entity.name}.sql")
 				def templateFilePath = this.getResource("templates/SQL.tmpl")
 				def template = engine.createTemplate(templateFilePath).make(bind)
 				sqlFile.write template.toString()
@@ -46,7 +45,7 @@ class SQLGenerator {
 	}
 	
 	private static File getSQLGenPath() {
-		def path = new File("env/sql")
+		def path = new File("env/hsql/sql.dgen")
 		path.mkdirs()
 		return path
 	}
