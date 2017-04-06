@@ -79,7 +79,7 @@ class DSL {
 		dir.eachFileRecurse(FileType.FILES) { file ->
 			Script script = new GroovyShell().parse(file);
 			DomainModel modul = new DMDFactoryBuilder().build(script)
-			modul.path = file.getParent()
+			modul.path = file.getParent().toLowerCase()
 			domainModel.modules.add(modul)
 		}
 		result = domainModel
