@@ -1,4 +1,4 @@
-DROP TABLE ${entity.dbName};
+DROP TABLE dmd_${entity.dbName};
 DELETE FROM SEQUENCES WHERE SEQ_NAME = '${entity.dbName}_seq';
 
 CREATE TABLE dmd_${entity.dbName}

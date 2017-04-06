@@ -80,7 +80,6 @@ class DSL {
 			Script script = new GroovyShell().parse(file);
 			DomainModel modul = new DMDFactoryBuilder().build(script)
 			modul.path = file.getParent()
-			
 			domainModel.modules.add(modul)
 		}
 		result = domainModel

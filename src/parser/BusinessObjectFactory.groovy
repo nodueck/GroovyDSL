@@ -17,6 +17,13 @@ class BusinessObjectFactory extends AbstractFactory {
 	public Object newInstance(FactoryBuilderSupport builder, Object name, Object value, Map map)
 			throws InstantiationException, IllegalAccessException {
 		map = map.isEmpty() ? new HashMap<String, Object>() : map; //leere Map ist immutable, deshalb ggf. eine neue Anlegen
+		
+		//Es kann passieren, dass ein Property aufgelöst wird, z.B. Tari.class
+		// dann hat value den Wert "class Tarif"
+		if(value != null && value instanceof Class){
+			value = value.simpleName
+		}
+		
 		map.put("name", value)
 		
 		def businessObject

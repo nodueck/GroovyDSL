@@ -24,8 +24,12 @@ class DomainReferenceFactory extends AbstractFactory {
 		map = map.isEmpty() ? new HashMap<String, Object>() : map; //leere Map ist immutable, deshalb ggf. eine neue Anlegen
 		map.put("referenceType", name)
 		
+		if(value != null && value instanceof Class){
+			value = value.simpleName
+		}
+		
 		if(!map.containsKey("type")){
-			map.put("type", "entity") //convinience
+			map.put("type", "entity") //Convenience
 		}
 		nameTypePair = [name:value, type:map.get("type")]
 		map.remove("type")
