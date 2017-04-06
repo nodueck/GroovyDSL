@@ -17,6 +17,8 @@ class JavaGenerator {
 		
 		def engine = new SimpleTemplateEngine(false) // set to true for verbose mode
 		
+		println "Java files generated:"
+		
 		generateDomainObjects(model, path, engine)
 		generateRepository(model, path, engine)
 		
@@ -46,6 +48,7 @@ class JavaGenerator {
 				def templateFilePath = this.getResource("templates/Repository.tmpl")
 				def template = engine.createTemplate(templateFilePath).make(bind)
 				javaFile.write template.toString()
+				println javaFile.absolutePath
 
 				// generate RepositoryInterface
 				javaFileName = "${repo.name}I.java"
@@ -53,6 +56,7 @@ class JavaGenerator {
 				templateFilePath = this.getResource("templates/RepositoryInterface.tmpl")
 				template = engine.createTemplate(templateFilePath).make(bind)
 				javaFile.write template.toString()
+				println javaFile.absolutePath
 			}
 		}
 	}
@@ -74,6 +78,7 @@ class JavaGenerator {
 			def templateFilePath = this.getResource("templates/JavaObject.tmpl")
 			def template = engine.createTemplate(templateFilePath).make(bind)
 			javaFile.write template.toString()
+			println javaFile.absolutePath
 
 			// generate DataBaseAccessor for Entity
 			if(domainObj.class.simpleName == "Entity"){
@@ -82,6 +87,7 @@ class JavaGenerator {
 				templateFilePath = this.getResource("templates/DBAccessor.tmpl")
 				template = engine.createTemplate(templateFilePath).make(bind)
 				DBAFile.write template.toString()
+				println DBAFile.absolutePath
 			}
 		}
 	}

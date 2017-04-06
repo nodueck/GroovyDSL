@@ -15,8 +15,8 @@ class SQLGenerator {
 		
 		def path = getSQLGenPath()
 		
+		println "SQL files generated:"
 		generateSqlForEntity(model, path, engine)
-		
 		model.modules.each { modul ->
 			def modulPath = new File(path, modul.path)
 			modulPath = new File(modulPath, modul.name.toLowerCase()) //add module name to path
@@ -39,7 +39,7 @@ class SQLGenerator {
 				def templateFilePath = this.getResource("templates/SQL.tmpl")
 				def template = engine.createTemplate(templateFilePath).make(bind)
 				sqlFile.write template.toString()
-
+				println sqlFile.absolutePath
 			}
 		}
 	}
