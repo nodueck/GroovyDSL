@@ -20,56 +20,31 @@ public class ${fullName} extends Entity4 {
 		super(uc);
 	}
 
-	<%
-	domainObject.domainProperties.each {
-		if(it.requirement)	out << "\n\t/* $it.requirement.content */\n\t"
-		out << """protected ${m2jMapper.getType(it)} $it.name;
-	"""
-	}
-	%>
-	<%
-	domainObject.domainReferences.each {
-		if(it.requirement)	out << "\n\t/* $it.requirement.content */\n\t"
-		out << """protected ${m2jMapper.getReferenceType(it)} ${it.referencedObject.name.toLowerCase()};
-	"""
-	}
-	%>
+	<% domainObject.domainProperties.each { %>
+	<% if(it.requirement) "/* $it.requirement.content */" %>
+	protected ${m2jMapper.getType(it)} $it.name; <% } %>
 	
-	<%
-	domainObject.domainProperties.each {
-		out << """public ${m2jMapper.getType(it)} get${it.name.capitalize()}(){
+	<% domainObject.domainReferences.each { %>
+	<% if(it.requirement) "/* $it.requirement.content */" %>
+	protected ${m2jMapper.getReferenceType(it)} ${it.referencedObject.name.toLowerCase()}; <% } %>
+	
+	<% domainObject.domainProperties.each { %>
+	public ${m2jMapper.getType(it)} get${it.name.capitalize()}(){
 		return $it.name;
-	}
+	} <% } %>
 	
-	"""
-	}
-	%>
-	<%
-	domainObject.domainReferences.each {
-		out << """public ${m2jMapper.getReferenceType(it)} get${it.referencedObject.name.capitalize()}(){
+	<% domainObject.domainReferences.each { %>
+	public ${m2jMapper.getReferenceType(it)} get${it.referencedObject.name.capitalize()}(){
 		return ${it.referencedObject.name.toLowerCase()};
-	}
+	} <% } %>
 	
-	"""
-	}
-	%>
-	
-	<%
-	domainObject.domainProperties.each {
-		out << """public void set${it.name.capitalize()}(${m2jMapper.getType(it)} $it.name){
+	<% domainObject.domainProperties.each { %>
+	public void set${it.name.capitalize()}(${m2jMapper.getType(it)} $it.name){
 		this.${it.name} = ${it.name};	
-	}
+	} <% } %>
 	
-	"""
-	}
-	%>
-	<%
-	domainObject.domainReferences.each {
-		out << """public void set${it.referencedObject.name.capitalize()}(${m2jMapper.getReferenceType(it)} ${it.referencedObject.name.toLowerCase()} ){
+	<% domainObject.domainReferences.each { %>
+	public void set${it.referencedObject.name.capitalize()}(${m2jMapper.getReferenceType(it)} ${it.referencedObject.name.toLowerCase()} ){
 		this.${it.referencedObject.name.toLowerCase()} = ${it.referencedObject.name.toLowerCase()};
-	}
-	
-	"""
-	}
-	%>
+	} <% } %>
 }
