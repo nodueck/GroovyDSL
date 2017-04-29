@@ -1,15 +1,18 @@
 
 class ${domainAbstr.name} << ${domainAbstr.class.simpleName} >> {
-	
-}
-<% if(domainAbstr.requirement) {
- out << "note \"${generator.getNote(domainAbstr)}\" as N${domainAbstr.name}\n"
- out << "${domainAbstr.name} .. N${domainAbstr.name}"
- } %>
 
-<% 	domainAbstr.domainReferences.each { 
-	out << "${domainAbstr.name}"
-	out << " -- "
-	out << "${it.referencedObject.name}\n" 
-	}	
-%>
+	<% domainAbstr.domainProperties.each { %>
+	${it.name}
+	<% } %>
+}
+
+<% if(domainAbstr.requirement) { %>
+ note "${generator.getNote(domainAbstr)}" as N${domainAbstr.name}
+ ${domainAbstr.name} .. N${domainAbstr.name}
+<% } %>
+
+<% 	domainAbstr.domainReferences.each {%>
+	${domainAbstr.name} --  <% (it.referenceType == 'hasMany' ? '"*" ' : '"1" ')  %>
+	${it.referencedObject.name}
+
+<% } %>

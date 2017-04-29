@@ -16,13 +16,6 @@ public class PlantUmlGenerator {
 		return template.toString()
 	}
 	
-	public static String domainObjectToPlantUml(DomainObject domainObj){
-		def engine = new SimpleTemplateEngine(false) // set to true for verbose mode
-		def templateFilePath = this.getResource("templates/DomainObject.tmpl")
-		def template = engine.createTemplate(templateFilePath).make([domainObject: domainObj, generator: PlantUmlGenerator])
-		return template.toString()
-	}
-	
 	public static String otherDomainAbstractionsToPlantUml(DomainAbstraction domainAbstr) {
 		def engine = new SimpleTemplateEngine(false) // set to true for verbose mode
 		def templateFilePath = this.getResource("templates/DomainAbstraction.tmpl")
