@@ -12,7 +12,6 @@ class ${domainAbstr.name} << ${domainAbstr.class.simpleName} >> {
 <% } %>
 
 <% 	domainAbstr.domainReferences.each {%>
-	${domainAbstr.name} --  <% (it.referenceType == 'hasMany' ? '"*" ' : '"1" ')  %>
-	${it.referencedObject.name}
-
+	${domainAbstr.name} --  <%= (it.referenceType == 'hasMany' ? '"*" ' : '"1" ')  %> ${it.referencedObject.name}
+	
 <% } %>
